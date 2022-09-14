@@ -1,0 +1,19 @@
+<div class="infinite-scroll-component">
+    <div class="content-wrapper">
+        <slot name="infinite-scroll-content"></slot>
+    </div>
+    <div class="empty-list-wrapper">
+        <slot name="empty-list-content">
+            <div class="default-empty-list">
+                <p>empty list</p>
+            </div>
+        </slot>
+    </div>
+    <div class="loading-wrapper">
+        <slot name="loading-content">
+            <div class="default-loading">
+                <jb-loading></jb-loading>
+            </div>
+        </slot>
+    </div>
+</div>
