@@ -7,8 +7,6 @@ Infinite scroll web-component with  additional features including:
 - end of the list state
 - enable/disable scroll capture
 
-
-
 ## installation
 ```js
  import "jb-infinite-scroll" from jb-infinite-scroll;
