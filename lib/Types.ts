@@ -1,5 +1,3 @@
-import { JBInputWebComponent } from 'jb-input';
-
 export type Elements = {
     loading: HTMLDivElement,
     contentWrapper: HTMLDivElement,
