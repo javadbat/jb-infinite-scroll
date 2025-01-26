@@ -1,6 +1,6 @@
 {
-  "name": "jb-infinite-scroll",
-  "description": "infinite scroll web component",
+  "name": "jb-infinite-scroll-react",
+  "description": "infinite scroll react component",
   "type": "module",
   "author": {
 		"name": "mohammad javad bathaei",
@@ -10,26 +10,24 @@
     "jb",
     "jb-infinite-scroll",
     "infinite scroll",
-    "web component"
+    "react component"
   ],
-  "version": "1.1.1",
+  "version": "1.0.0",
   "bugs": "https://github.com/javadbat/jb-infinite-scroll/issues",
   "license": "MIT",
   "files": [
     "LICENSE",
     "README.md",
     "lib/",
-    "dist/",
-    "react/",
-    "react/dist/"
+    "dist/"
   ],
   "main": "index.js",
-  "types": "./dist/web-component/jb-infinite-scroll/lib/jb-infinite-scroll.d.ts",
   "repository": {
 		"type": "git",
 		"url": "git@github.com:javadbat/jb-infinite-scroll.git"
   },
+  "types": "./dist/web-component/jb-infinite-scroll/react/lib/JBInfiniteScroll.d.ts",
   "dependencies": {
-    "jb-loading": ">=1.5.0"
+    "jb-infinite-scroll": ">=1.0.0"
   }
 }

@@ -1,1 +1,1 @@
-import './dist/jb-infinite-scroll.js';
+export * from './dist/jb-infinite-scroll.js';

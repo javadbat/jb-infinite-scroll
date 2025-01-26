@@ -1,18 +1,14 @@
 import HTML from './jb-infinite-scroll.html';
 import CSS from './jb-infinite-scroll.scss';
-import { Elements } from './Types';
+import { Elements, StateChangeWaitingBehavior } from './types.js';
 import "jb-loading";
 
-enum stateChangeWaitingBehaviour {
-    // when user scroll we lock event call and waith for user to change isloading (good for React or any other ui framework solution)
-    forceWait = "FORCE_WAIT",
-    // when user scroll we dont lock its event listenr and developer should handle extra scroll by it self (good for pure js solution)
-    noWait = "NO_WAIT",
-}
+export * from "./types.js";
+
 export class JBInfiniteScrollWebComponent extends HTMLElement {
     elements!: Elements;
     #isLoading = false;
-    //اون فاصله ای که ته لیست میگذاریم تا قبل از رسیدن به انتها ایونت رو کال کنه
+    //the amount of space that we listen to for trigger refresh 
     #endPageGap = 0;
     #isLastPage = false;
 
@@ -21,31 +17,31 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     #isWaitingForStateChange = false;
     #disableCaptureScroll = false;
     #isListEmpty = false;
-    #stateChangeWaitingBehaviour: stateChangeWaitingBehaviour = stateChangeWaitingBehaviour.forceWait;
+    #stateChangeWaitingBehavior: StateChangeWaitingBehavior = StateChangeWaitingBehavior.forceWait;
 
 
     constructor() {
       super();
       this.initWebComponent();
     }
-    mapStateChangeWaitingBehaviour(state: string) {
+    mapStateChangeWaitingBehavior(state: string) {
       switch (state) {
         case "FORCE_WAIT":
-          return stateChangeWaitingBehaviour.forceWait;
+          return StateChangeWaitingBehavior.forceWait;
         case "NO_WAIT":
-          return stateChangeWaitingBehaviour.noWait;
+          return StateChangeWaitingBehavior.noWait;
 
         default:
-          return stateChangeWaitingBehaviour.forceWait;
+          return StateChangeWaitingBehavior.forceWait;
 
       }
 
     }
-    set stateChangeWaitingBehaviour(value: string) {
-      this.#stateChangeWaitingBehaviour = this.mapStateChangeWaitingBehaviour(value);
+    set stateChangeWaitingBehavior(value: string) {
+      this.#stateChangeWaitingBehavior = this.mapStateChangeWaitingBehavior(value);
     }
-    get stateChangeWaitingBehaviour() {
-      return this.#stateChangeWaitingBehaviour;
+    get stateChangeWaitingBehavior() {
+      return this.#stateChangeWaitingBehavior;
     }
     get disableCaptureScroll() {
       return this.#disableCaptureScroll;
@@ -104,7 +100,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
       }
     }
     connectedCallback() {
-      // standard web component event that called when all of dom is binded
+      // standard web component event that called when all of dom is bounded
       this.callOnLoadEvent();
       this.initProp();
       this.callOnInitEvent();
@@ -162,12 +158,12 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
         }
       }
     }
-    setIsWaitingForStatChange(isWaitingstatus: boolean) {
+    setIsWaitingForStatChange(isWaitingStatus: boolean) {
 
-      if (isWaitingstatus) {
-        if (this.#stateChangeWaitingBehaviour === stateChangeWaitingBehaviour.forceWait) {
+      if (isWaitingStatus) {
+        if (this.#stateChangeWaitingBehavior === StateChangeWaitingBehavior.forceWait) {
           this.#isWaitingForStateChange = true;
-        } else if (this.#stateChangeWaitingBehaviour === stateChangeWaitingBehaviour.noWait) {
+        } else if (this.#stateChangeWaitingBehavior === StateChangeWaitingBehavior.noWait) {
           return;
         }
       }
@@ -185,7 +181,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     }
 
     static get observedAttributes() {
-      return ['is-loading', 'is-list-empty', 'is-list-ended', 'disable-capture-scroll', 'state-change-waiting-behaviour'];
+      return ['is-loading', 'is-list-empty', 'is-list-ended', 'disable-capture-scroll', 'state-change-waiting-behavior'];
     }
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
       // do something when an attribute has changed
@@ -225,8 +221,8 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
 
           }
           break;
-        case 'state-change-waiting-behaviour':
-          this.#stateChangeWaitingBehaviour = this.mapStateChangeWaitingBehaviour(value);
+        case 'state-change-waiting-behavior':
+          this.#stateChangeWaitingBehavior = this.mapStateChangeWaitingBehavior(value);
           break;
 
 

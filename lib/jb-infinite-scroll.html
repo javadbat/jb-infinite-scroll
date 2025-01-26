@@ -1,15 +1,15 @@
 <div class="infinite-scroll-component">
-    <div class="content-wrapper">
+    <div class="content-wrapper" part="content-wrapper">
         <slot name="infinite-scroll-content"></slot>
     </div>
-    <div class="empty-list-wrapper">
+    <div class="empty-list-wrapper" part="empty-list-wrapper">
         <slot name="empty-list-content">
             <div class="default-empty-list">
                 <p>empty list</p>
             </div>
         </slot>
     </div>
-    <div class="loading-wrapper">
+    <div class="loading-wrapper" part="loading-wrapper">
         <slot name="loading-content">
             <div class="default-loading">
                 <jb-loading></jb-loading>
