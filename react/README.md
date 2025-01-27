@@ -42,7 +42,7 @@ here is the overview of the component usage in an app:
       }
       return (
           <JBInfiniteScroll ref={ref} onScrollEnd={onScrollEnd} isLoading={isLoading} isListEnded={isListEnded} disableCaptureScroll={isLoading}>
-            <div slot="infinite-scroll-content">
+            <div slot="content">
               {
                 list.map((item)=>{
                   return(<div key={item}>{item}</div>);
@@ -55,11 +55,11 @@ here is the overview of the component usage in an app:
 
 ## content
 
-to show content you just have to place a html dom element with `slot="infinite-scroll-content"`prop on it in the component children area:
+to show content you just have to place a html dom element with `slot="content"`prop on it in the component children area:
 
 ```jsx
 <JBInfiniteScroll>
-  <div slot="infinite-scroll-content">
+  <div slot="content">
     <div>item 1</div>
     <div>item 2</div>
     <div>item 3</div>
@@ -82,11 +82,11 @@ you can show loading by setting `isLoading ="true"` prop.
 ```jsx
     <JBInfiniteScroll isLoading={true}></JBInfiniteScroll>
 ```
- you can also implement your own loading ui by adding a slot with `slot="loading-content"` like the example below:
+ you can also implement your own loading ui by adding a slot with `slot="loading"` like the example below:
 
 ```jsx
     <JBInfiniteScroll isLoading={true}>
-        <div slot="loading-content">
+        <div slot="loading">
             <p>your loading</p>
         </div>
     </JBInfiniteScroll>
@@ -99,10 +99,10 @@ if there is no data to show you can set `isListEmpty = "true"`.
 ```jsx
 <JBInfiniteScroll isListEmpty={true}></JBInfiniteScroll>
 ``` 
- you can set your own empty list ui by adding a slot with `slot="empty-list-content"` like the example below:
+ you can set your own empty list ui by adding a slot with `slot="empty"` like the example below:
 ```html
     <JBInfiniteScroll isListEmpty={true}>
-        <div slot="empty-list-content">
+        <div slot="empty">
             <p>list is empty</p>
         </div>
     </JBInfiniteScroll>
@@ -125,7 +125,7 @@ in some cases like when you load your content or your page didn't fully load or 
     </JBInfiniteScroll>
 ```
 
-### stateChangeWaitingBehavior
+## stateChangeWaitingBehavior
 
 by default `stateChangeWaitingBehavior` is `FORCE_WAIT` thats means when an scroll event fires, scroll is not captured until on of the `isLoading` ,`isListEmpty` ,`isListEnded` states updates.
 if you want to change this behavior you can set `stateChangeWaitingBehavior` to `NO_WAIT`. thats means the scroll callback in not dependent on `is-loading`,`is-list-empty`,`is-list-ended` state update.
@@ -137,4 +137,7 @@ if you are using typeScript set it via `StateChangeWaitingBehavior` enum:
   <JBInfiniteScroll StateChangeWaitingBehavior={StateChangeWaitingBehavior.noWait}>
   </JBInfiniteScroll>
 ```
+## styling
+
+read the [jb-infinite-scroll](https://github.com/javadbat/jb-infinite-scroll) styling section it exactly the same.
 

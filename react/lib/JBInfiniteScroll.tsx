@@ -20,22 +20,14 @@ declare global {
 
 const JBInfiniteScroll = React.forwardRef((props: Props, ref:React.ForwardedRef<JBInfiniteScrollWebComponent>) => {
   const element = useRef<JBInfiniteScrollWebComponent>(null);
-  const [refChangeCount, refChangeCountSetter] = useState(0);
   useImperativeHandle(
     ref,
     () => (element ? element.current : null),
     [element],
   );
-  useEffect(() => {
-    refChangeCountSetter(refChangeCount + 1);
-  }, [element.current]);
 
-  useEffect(() => {
-    element.current?.checkScrollHeight();
-  }, [element.current]);
-
-  const onScrollEnd = useCallback((e) => {
-    if (props.onScrollEnd) {
+  const onScrollEnd = useCallback((e:CustomEvent) => {
+    if (typeof props.onScrollEnd == "function") {
       props.onScrollEnd(e);
     }
   }, [props.onScrollEnd]);
@@ -43,18 +35,18 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref:React.ForwardedRef<
   useBindEvent(element, 'scrollEnd', onScrollEnd, true);
 
   useEffect(() => {
-    if (element.current) {
+    if (element.current && typeof props.isLoading == "boolean") {
       if (props.isLoading) {
         element.current.setAttribute('is-loading', 'true');
       } else {
         element.current.setAttribute('is-loading', 'false');
-
       }
     }
 
-  }, [props.isLoading]);
+  }, [element.current, props.isLoading]);
+
   useEffect(() => {
-    if (element.current) {
+    if (element.current, typeof props.isListEmpty == "boolean") {
       if (props.isListEmpty) {
         element.current.setAttribute('is-list-empty', 'true');
       } else {
@@ -63,9 +55,10 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref:React.ForwardedRef<
       }
     }
 
-  }, [props.isListEmpty]);
+  }, [element.current, props.isListEmpty]);
+
   useEffect(() => {
-    if (element.current) {
+    if (element.current && typeof props.isListEnded == "boolean") {
       if (props.isListEnded) {
         element.current?.setAttribute('is-list-ended', 'true');
       } else {
@@ -73,9 +66,10 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref:React.ForwardedRef<
       }
     }
 
-  }, [props.isListEnded]);
+  }, [element.current, props.isListEnded]);
+
   useEffect(() => {
-    if (element.current) {
+    if (element.current && typeof props.disableCaptureScroll == "boolean") {
       if (props.disableCaptureScroll) {
         element.current?.setAttribute('disable-capture-scroll', 'true');
       } else {
@@ -83,16 +77,18 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref:React.ForwardedRef<
       }
     }
 
-  }, [props.disableCaptureScroll]);
+  }, [element.current, props.disableCaptureScroll]);
+
   useEffect(() => {
     if (props.stateChangeWaitingBehavior && element.current) {
       element.current?.setAttribute('state-change-waiting-behavior', props.stateChangeWaitingBehavior);
     }
-  }, [props.stateChangeWaitingBehavior]);
+  }, [element.current, props.stateChangeWaitingBehavior]);
   return (
     <jb-infinite-scroll ref={element}>{props.children}</jb-infinite-scroll>
   );
 });
+
 export type Props = React.PropsWithChildren< {
   stateChangeWaitingBehavior?: StateChangeWaitingBehavior,
   disableCaptureScroll?: boolean,

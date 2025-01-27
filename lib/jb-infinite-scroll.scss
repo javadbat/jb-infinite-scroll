@@ -1,20 +1,36 @@
+:host{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
 .infinite-scroll-component {
     height: 100%;
-    display: grid;
-    grid-template-rows: auto 1fr;
-
     .content-wrapper {
         width: 100%;
-        height: auto;
+        height: 100%;
         display: none;
         overflow: auto;
-
         &.--show {
-            display: inline-block;
+            display: block;
+        }
+
+        ::slotted([slot="content"]) {
+            height: auto;
         }
 
     }
+    .loading-wrapper {
+        display: none;
+        .default-loading {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+        }
 
+        &.--show {
+            display: block;
+        }
+    }
     .empty-list-wrapper {
         width: 100%;
         height: 100%;
@@ -25,20 +41,19 @@
             justify-content: center;
             align-items: center;
         }
-    }
-
-    .loading-wrapper {
-        display: none;
-        --jb-loading-color: var(--captcha-component-loading-color, #1565D8);
-
-        .default-loading {
-            width: 40px;
-            height: 40px;
-            margin: 0 auto;
-        }
-
-        &.--show {
-            display: inline-block;
+        ::slotted([slot="empty"]){
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-height: 100%;
+            overflow-y: hidden;
+            background-color: transparent;
+            padding: 1rem;
+            box-sizing: border-box;
         }
     }
+
+    
 }

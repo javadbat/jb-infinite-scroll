@@ -23,15 +23,13 @@ Infinite scroll web-component with  additional features including:
 
 ```
 
-## instruction
+## show content
 
-### show content
-
-you can show your content by placing any element with slot attribute `slot="infinite-scroll-content"` like the example below:
+you can show your content by placing any element with slot attribute `slot="content"` like the example below:
 
 ```html
     <jb-infinite-scroll>
-        <div slot="infinite-scroll-content">
+        <div slot="content">
             <div>item 1</div>
             <div>item 2</div>
             <div>item 3</div>
@@ -39,7 +37,8 @@ you can show your content by placing any element with slot attribute `slot="infi
     </jb-infinite-scroll>
 
 ```
-### add scroll callback
+
+## add scroll callback
 
 you can add your onscroll callback function to `scrollEnd` event listener.
 
@@ -53,7 +52,7 @@ if `is-loading` ,`is-list-empty` ,`is-list-ended` or `disable-capture-scroll` is
     })
 ```
 
-### set loading
+## set loading
 
 you can show loading by setting `is-loading ="true"` attribute or `isLoading` property.
 
@@ -61,18 +60,18 @@ you can show loading by setting `is-loading ="true"` attribute or `isLoading` pr
     const jbInfiniteScroll = document.getElementByTagName('jb-infinite-scroll');
     jbInfiniteScroll.isLoading = true;
 ```
- you can also set your own loading ui by adding a slot with `slot="loading-content"` like the example below:
+ you can also set your own loading ui by adding a slot with `slot="loading"` like the example below:
 
 ```html
     <jb-infinite-scroll is-loading="true">
-        <div slot="loading-content">
+        <div slot="loading">
             <p>your loading</p>
         </div>
     </jb-infinite-scroll>
 
 ```
 
-### set list empty
+## set list empty
 
 if there is no data to show you can set `is-list-empty = "true"`.
 
@@ -80,16 +79,16 @@ if there is no data to show you can set `is-list-empty = "true"`.
     const jbInfiniteScroll = document.getElementByTagName('jb-infinite-scroll');
     jbInfiniteScroll.isListEmpty = true;
 ``` 
- you can set your own empty list ui by adding a slot with `slot="empty-list-content"` like the example below:
+ you can set your own empty list ui by adding a slot with `slot="empty"` like the example below:
 ```html
     <jb-infinite-scroll is-list-empty="true">
-        <div slot="empty-list-content">
+        <div slot="empty">
             <p>list is empty</p>
         </div>
     </jb-infinite-scroll>
 
 ```
-### set list ended
+## set list ended
 if there is no more data to show you can set `is-list-ended = "true"`.this disables scroll capturing and `scrollEnd` event won't be called after.
 
 ```js
@@ -102,7 +101,7 @@ if there is no more data to show you can set `is-list-ended = "true"`.this disab
 
 ```
 
-### disable scroll capture
+## disable scroll capture
 in some cases if you want to disable capture scroll you can set `disable-capture-scroll = "true"`'
 
 ```js
@@ -113,28 +112,42 @@ in some cases if you want to disable capture scroll you can set `disable-capture
 
 
 
-### state-change-waiting-behavior
+## state-change-waiting-behavior
 
-by default `state-change-waiting-behavior` is `FORCE_WAIT` thats means when an scroll event fires,scroll is not captured until on of the `is-loading` ,`is-list-empty` ,`is-list-ended` states updates.
-if you want to change this behavior you can set `state-change-waiting-behavior` to `NO_WAIT`. thats means the scroll callback in not dependent on `is-loading`,`is-list-empty`,`is-list-ended` state update.
+by default `state-change-waiting-behavior` is `FORCE_WAIT` thats means when an scroll event fires,scroll is not captured until one of the `is-loading` ,`is-list-empty` ,`is-list-ended` states updates.
+if you want to change this behavior you can set `state-change-waiting-behavior` to `NO_WAIT`. that means the scroll callback in not dependent on `is-loading`,`is-list-empty`,`is-list-ended` state update.
 
+we do this to prevent multiple call for one scroll to the end, because in most cases you would set some loading or list ended state or list is empty state  after the scroll end called. but if you want to handle states by yourself and not use our state manager mechanism you can just set this to `NO_WAIT` to handle everything by yourself
 
 ### usage overview
 ```html
     <jb-infinite-scroll is-list-empty="true" is-loading="true">
-        <div slot="infinite-scroll-content">
+        <div slot="content">
             <div>item 1</div>
             <div>item 2</div>
             <div>item 3</div>
         </div>
-        <div slot="empty-list-content">
+        <div slot="empty">
             <p>list is empty</p>
         </div>
-        <div slot="loading-content">
+        <div slot="loading">
             <p>loading</p>
         </div>
     </jb-infinite-scroll>
 ```
+
+## styling
+you can use `::part` to apply style on our web-component part
+```css
+jb-infinite-scroll::part(content-wrapper){
+  display:'flex'
+}
+jb-infinite-scroll:states(loading)::part(loading-wrapper){
+  background:red;
+}
+```
+we have `content-wrapper`, `loading-wrapper`, `empty-list-wrapper`, `default-loading` as a supported part in our component. you can also combine them with `loading`, `empty` states for different style in different states.
+if you want to style default loading see [jb-loading](https://github.com/javadbat/jb-loading) styling section.
 
 ## Other Related Docs:
 
