@@ -14,6 +14,10 @@ Infinite scroll web-component with  additional features including:
 
 Demo in codepen: https://codepen.io/javadbat/pen/EaYGGEo
 
+## using with JS frameworks
+
+to use this component in **react** see [`jb-infinite-scroll/react`](https://github.com/javadbat/jb-infinite-scroll/tree/main/react);
+
 ## installation
 ```js
  import "jb-infinite-scroll" from jb-infinite-scroll;
