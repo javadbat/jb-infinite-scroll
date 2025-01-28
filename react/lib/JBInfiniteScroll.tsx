@@ -85,7 +85,7 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref:React.ForwardedRef<
     }
   }, [element.current, props.stateChangeWaitingBehavior]);
   return (
-    <jb-infinite-scroll ref={element}>{props.children}</jb-infinite-scroll>
+    <jb-infinite-scroll class={props.className} ref={element}>{props.children}</jb-infinite-scroll>
   );
 });
 
@@ -95,6 +95,7 @@ export type Props = React.PropsWithChildren< {
   isListEmpty?: boolean,
   isLoading?: boolean,
   isListEnded?:boolean,
+  className?:string
   onScrollEnd?:(e:CustomEvent)=>void
 }>
 

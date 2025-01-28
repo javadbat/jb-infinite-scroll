@@ -4,6 +4,8 @@ infinite scroll react component.
 
 >this component is a react wrapper for [jb-infinite-scroll](https://github.com/javadbat/jb-infinite-scroll). so for more information read it's doc.
 
+Demo in codeSandBox: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-infinite-scroll) for just see the demo and [codeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInfiniteScroll.tsx) if you want to see and play with code
+
 ## usage
 first install component in npm or any other package manager
 
