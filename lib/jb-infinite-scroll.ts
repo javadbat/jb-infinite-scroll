@@ -80,7 +80,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     } else {
       this.elements?.loading.classList.remove('--show');
       (this.#internals as any).states?.delete("loading");
-      this.#checkEmptyListState();
+      this.#updateListDisplayState();
       this.#checkScrollHeight();
     }
   }
@@ -95,10 +95,10 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
       (this.#internals as any).states?.delete("empty");
     }
     this.#setIsWaitingForStatChange(false);
-    this.#checkEmptyListState();
+    this.#updateListDisplayState();
 
   }
-  #checkEmptyListState() {
+  #updateListDisplayState() {
     if (this.#isListEmpty) {
       this.elements?.emptyListWrapper.classList.add('--show');
       this.elements?.contentWrapper.classList.remove('--show');
