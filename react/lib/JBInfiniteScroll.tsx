@@ -1,9 +1,9 @@
-import React, { useState, useRef, useCallback, useEffect, useImperativeHandle } from 'react';
+import React, { useRef, useCallback, useEffect, useImperativeHandle } from 'react';
 import "jb-infinite-scroll";
 
 // eslint-disable-next-line no-duplicate-imports
 import {JBInfiniteScrollWebComponent, StateChangeWaitingBehavior} from "jb-infinite-scroll";
-import { useBindEvent } from "../../../../common/hooks/use-event.js";
+import { EventProps, useEvents } from './events-hook.js';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -26,13 +26,6 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref:React.ForwardedRef<
     [element],
   );
 
-  const onScrollEnd = useCallback((e:CustomEvent) => {
-    if (typeof props.onScrollEnd == "function") {
-      props.onScrollEnd(e);
-    }
-  }, [props.onScrollEnd]);
-
-  useBindEvent(element, 'scrollEnd', onScrollEnd, true);
 
   useEffect(() => {
     if (element.current && typeof props.isLoading == "boolean") {
@@ -84,19 +77,22 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref:React.ForwardedRef<
       element.current?.setAttribute('state-change-waiting-behavior', props.stateChangeWaitingBehavior);
     }
   }, [element.current, props.stateChangeWaitingBehavior]);
+
+  useEvents(element, props);
+
   return (
     <jb-infinite-scroll class={props.className} ref={element}>{props.children}</jb-infinite-scroll>
   );
 });
 
-export type Props = React.PropsWithChildren< {
+export type Props = EventProps & React.PropsWithChildren< {
   stateChangeWaitingBehavior?: StateChangeWaitingBehavior,
   disableCaptureScroll?: boolean,
   isListEmpty?: boolean,
   isLoading?: boolean,
   isListEnded?:boolean,
   className?:string
-  onScrollEnd?:(e:CustomEvent)=>void
+  
 }>
 
 JBInfiniteScroll.displayName = "JBInfiniteScroll";

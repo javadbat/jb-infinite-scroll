@@ -1,3 +1,6 @@
+import type {EventTypeWithTarget} from 'jb-core';
+import type { JBInfiniteScrollWebComponent } from './jb-infinite-scroll';
+
 export type Elements = {
     loading: HTMLDivElement,
     contentWrapper: HTMLDivElement,
@@ -12,3 +15,4 @@ export enum StateChangeWaitingBehavior {
     // when user scroll we dont lock its event listener and developer should handle extra scroll by it self (good for pure js solution)
     noWait = "NO_WAIT",
 }
+export type JBInfiniteScrollEventType<TEvent> = EventTypeWithTarget<TEvent,JBInfiniteScrollWebComponent>;
