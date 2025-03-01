@@ -24,7 +24,7 @@ export const reactComponentList: ReactComponentBuildConfig[] = [
       "prop-types": "PropTypes",
       "jb-infinite-scroll": "JBInfiniteScroll",
       "jb-core":"JBCore",
-      "JBCoreReact":"JBCoreReact"
+      "jb-core/react":"JBCoreReact"
     },
     umdName: "JBInfiniteScrollReact",
     dir: "./react"
