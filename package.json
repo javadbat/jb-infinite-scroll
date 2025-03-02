@@ -24,7 +24,7 @@
     "react/dist/"
   ],
   "main": "index.js",
-  "types": "./dist/web-component/jb-infinite-scroll/lib/jb-infinite-scroll.d.ts",
+  "types": "./dist/jb-infinite-scroll.d.ts",
   "repository": {
 		"type": "git",
 		"url": "git@github.com:javadbat/jb-infinite-scroll.git"
