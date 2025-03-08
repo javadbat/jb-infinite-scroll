@@ -1,9 +1,9 @@
 import HTML from './jb-infinite-scroll.html';
 import CSS from './jb-infinite-scroll.scss';
-import { Elements, StateChangeWaitingBehavior } from './types.js';
+import { Elements, StateChangeWaitingBehavior } from './Types1.js';
 import "jb-loading";
 
-export * from "./types.js";
+export * from "./Types1.js";
 
 export class JBInfiniteScrollWebComponent extends HTMLElement {
   elements!: Elements;
