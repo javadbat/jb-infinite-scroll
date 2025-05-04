@@ -3,7 +3,7 @@ import { JBInfiniteScroll, Props } from "jb-infinite-scroll/react";
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<Props> = {
-  title: "Example/JBInfiniteScroll",
+  title: "Components/JBInfiniteScroll",
   component: JBInfiniteScroll,
 };
 export default meta;
