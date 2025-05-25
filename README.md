@@ -12,7 +12,9 @@ Infinite scroll web-component with  additional features including:
 - enable/disable scroll capture
 - support loading state with customizable ui
 
-Demo in codepen: https://codepen.io/javadbat/pen/EaYGGEo
+## Demo
+ [codepen](https://codepen.io/javadbat/pen/EaYGGEo)
+ [storybook](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll)
 
 ## using with JS frameworks
 
@@ -20,7 +22,7 @@ to use this component in **react** see [`jb-infinite-scroll/react`](https://gith
 
 ## installation
 ```js
- import "jb-infinite-scroll" from jb-infinite-scroll;
+ import "jb-infinite-scroll";
 ```
 ## usage
 ```html
