@@ -139,7 +139,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
       loadingWrapper: shadowRoot.querySelector('.loading-wrapper')!,
       emptyListWrapper: shadowRoot.querySelector('.empty-list-wrapper')!,
     } as const;
-
+    this.isLoading = this.hasAttribute('is-loading') ? this.getAttribute('is-loading') === 'true' : this.#isLoading;
   }
   #registerEventListener() {
     this.elements.contentWrapper.addEventListener('scroll', this.#onScroll.bind(this), { passive: true });

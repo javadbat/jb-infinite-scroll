@@ -10,7 +10,13 @@ export default meta;
 type Story = StoryObj<typeof JBInfiniteScroll>;
 
 export const Normal :Story = {
-  args:{}
+  args:{
+    children: <div slot="content">
+      <div>item1</div>
+      <div>item2</div>
+      <div>item3</div>
+    </div>,
+  }
 };
 
 
