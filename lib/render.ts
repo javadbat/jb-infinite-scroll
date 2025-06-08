@@ -1,4 +1,6 @@
-<div class="infinite-scroll-component">
+export function renderHTML(): string {
+  return /* html */ `
+  <div class="infinite-scroll-component">
     <div class="content-wrapper" part="content-wrapper">
         <slot name="content"></slot>
         <div class="loading-wrapper" part="loading-wrapper">
@@ -12,6 +14,7 @@
     <div class="empty-list-wrapper" part="empty-list-wrapper">
         <slot name="empty">
         </slot>
-    </div>
-    
-</div>
+    </div>  
+  </div>
+      `;
+}

@@ -1,5 +1,5 @@
-import HTML from './jb-infinite-scroll.html';
 import CSS from './jb-infinite-scroll.scss';
+import { renderHTML } from './render';
 import { Elements, StateChangeWaitingBehavior } from './types.js';
 import "jb-loading";
 
@@ -128,7 +128,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     const shadowRoot = this.attachShadow({
       mode: 'open'
     });
-    const html = `<style>${CSS}</style>` + '\n' + HTML;
+    const html = `<style>${CSS}</style>` + '\n' + renderHTML();
     const element = document.createElement('template');
     element.innerHTML = html;
     shadowRoot.appendChild(element.content.cloneNode(true));
