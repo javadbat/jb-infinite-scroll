@@ -1,3 +1,4 @@
+'use client';
 import React, { useRef, useCallback, useEffect, useImperativeHandle } from 'react';
 import "jb-infinite-scroll";
 import { useJBInfiniteScrollAttribute, JBInfiniteScrollAttributes } from './attributes-hook.js';
@@ -5,7 +6,7 @@ import { useJBInfiniteScrollAttribute, JBInfiniteScrollAttributes } from './attr
 import { JBInfiniteScrollWebComponent, StateChangeWaitingBehavior } from "jb-infinite-scroll";
 import { EventProps, useEvents } from './events-hook.js';
 
-declare global {
+declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
