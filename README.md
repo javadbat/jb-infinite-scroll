@@ -161,6 +161,6 @@ if you want to style default loading see [jb-loading](https://github.com/javadba
 
 - see [jb-infinite-scroll/react](https://github.com/javadbat/jb-infinite-scroll/tree/main/react) if you want to use this component in react.
 
-- see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/main/docs/component-list.md) for more components.
+- see [All JB Design system Component List](https://javadbat.github.io/design-system/
 
 - use [Contribution Guide](https://github.com/javadbat/design-system/blob/main/docs/contribution-guide.md) if you want to contribute in this component.
