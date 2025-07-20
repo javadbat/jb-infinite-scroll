@@ -89,9 +89,9 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
   }
   set isListEmpty(value: boolean) {
     this.#externalIsListEmpty = value;
-    if(value){
+    if (value) {
       (this.#internals as any).states?.add("empty");
-    }else{
+    } else {
       (this.#internals as any).states?.delete("empty");
     }
     this.#setIsWaitingForStatChange(false);
@@ -154,6 +154,15 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     if (scrollHeight <= clientHeight && this.canCaptureScroll) {
       this.#onScrollEnd();
     }
+  }
+
+  scrollTo(options: ScrollToOptions): void;
+  scrollTo(x: number, y: number): void;
+  scrollTo(params: number | ScrollToOptions, y?: number) {
+    y?this.elements.contentWrapper.scrollTo(params as any, y):this.elements.contentWrapper.scrollTo(params as any);
+  }
+  scrollToEnd(options?: Omit<ScrollToOptions, 'top'> ){
+    this.scrollTo({...options,top:this.elements.contentWrapper.scrollHeight});
   }
   #onScrollEnd() {
     this.#setIsWaitingForStatChange(true);

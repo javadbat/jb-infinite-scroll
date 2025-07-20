@@ -143,7 +143,12 @@ we do this to prevent multiple call for one scroll to the end, because in most c
         </div>
     </jb-infinite-scroll>
 ```
-
+## change scroll position
+```js
+    const InfiniteScroll = document.getElementByTagName('jb-infinite-scroll');
+    InfiniteScroll.scrollTo({ behavior: 'smooth', top: 400 })
+    InfiniteScroll.scrollToEnd()
+```
 ## styling
 you can use `::part` to apply style on our web-component part
 ```css
