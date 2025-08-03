@@ -1,3 +1,4 @@
+import { Automata } from './automata';
 import CSS from './jb-infinite-scroll.scss';
 import { renderHTML } from './render';
 import { Elements, StateChangeWaitingBehavior } from './types.js';
@@ -24,7 +25,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     }
   }
   #stateChangeWaitingBehavior: StateChangeWaitingBehavior = StateChangeWaitingBehavior.forceWait;
-
+  #automata: Automata;
   constructor() {
     super();
     if (typeof this.attachInternals == "function") {
@@ -140,6 +141,15 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
       emptyListWrapper: shadowRoot.querySelector('.empty-list-wrapper')!,
     } as const;
     this.isLoading = this.hasAttribute('is-loading') ? this.getAttribute('is-loading') === 'true' : this.#isLoading;
+    this.#automata = new Automata(
+      {
+        scrollToEnd: this.scrollToEnd.bind(this)
+      },
+      {
+        contentWrapper:this.elements.contentWrapper,
+        contentSlot: this.elements.contentWrapper.querySelector('slot')
+      }
+    );
   }
   #registerEventListener() {
     this.elements.contentWrapper.addEventListener('scroll', this.#onScroll.bind(this), { passive: true });
@@ -159,10 +169,10 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
   scrollTo(options: ScrollToOptions): void;
   scrollTo(x: number, y: number): void;
   scrollTo(params: number | ScrollToOptions, y?: number) {
-    y?this.elements.contentWrapper.scrollTo(params as any, y):this.elements.contentWrapper.scrollTo(params as any);
+    y ? this.elements.contentWrapper.scrollTo(params as any, y) : this.elements.contentWrapper.scrollTo(params as any);
   }
-  scrollToEnd(options?: Omit<ScrollToOptions, 'top'> ){
-    this.scrollTo({...options,top:this.elements.contentWrapper.scrollHeight});
+  scrollToEnd(options?: Omit<ScrollToOptions, 'top'>) {
+    this.scrollTo({ ...options, top: this.elements.contentWrapper.scrollHeight });
   }
   #onScrollEnd() {
     this.#setIsWaitingForStatChange(true);
@@ -200,7 +210,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['is-loading', 'is-list-empty', 'is-list-ended', 'disable-capture-scroll', 'state-change-waiting-behavior'];
+    return ['is-loading', 'is-list-empty', 'is-list-ended', 'disable-capture-scroll', 'state-change-waiting-behavior','stick-to-bottom'];
   }
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     // do something when an attribute has changed
@@ -209,31 +219,29 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
   #onAttributeChange(name: string, value: string) {
     switch (name) {
       case 'is-loading':
-        if (value === 'true') {
+        if (value === 'true' || value ==='') {
           this.isLoading = true;
         } else {
           this.isLoading = false;
         }
         break;
       case 'is-list-empty':
-        if (value === 'true') {
+        if (value === 'true' || value ==='' ) {
           this.isListEmpty = true;
         } else {
           this.isListEmpty = false;
-
         }
         break;
       case 'is-list-ended':
-        if (value === 'true') {
+        if (value === 'true' || value ==='') {
           this.#isListEnded = true;
         } else {
           this.#isListEnded = false;
-
         }
         break;
 
       case 'disable-capture-scroll':
-        if (value === 'true') {
+        if (value === 'true' || value ==='') {
           this.#disableCaptureScroll = true;
         } else {
           this.#disableCaptureScroll = false;
@@ -242,6 +250,13 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
         break;
       case 'state-change-waiting-behavior':
         this.#stateChangeWaitingBehavior = this.#mapStateChangeWaitingBehavior(value);
+        break;
+      case `stick-to-bottom`:
+        if (value === 'true' || value ==='') {
+          this.#automata.stickToBottom = true;
+        } else {
+          this.#automata.stickToBottom = false;
+        }
         break;
 
 

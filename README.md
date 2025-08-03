@@ -11,6 +11,7 @@ Infinite scroll web-component with  additional features including:
 - end of the list state
 - enable/disable scroll capture
 - support loading state with customizable ui
+- works well in chat bots for ability like `stick-to-bottom` and history loading
 
 ## Demo
  [codepen](https://codepen.io/javadbat/pen/EaYGGEo)
@@ -161,6 +162,20 @@ jb-infinite-scroll:states(loading)::part(loading-wrapper){
 ```
 we have `content-wrapper`, `loading-wrapper`, `empty-list-wrapper`, `default-loading` as a supported part in our component. you can also combine them with `loading`, `empty` states for different style in different states.
 if you want to style default loading see [jb-loading](https://github.com/javadbat/jb-loading) styling section.
+
+## Stick To Bottom
+
+in some cases like chat boxes we need component scroll to stick to the bottom of the component so when ne message or content comes at the end box will automatically scroll to the end. to achieve this you just have to add `stick-to-bottom` attribute to the web component.
+```html
+<jb-infinite-scroll stick-to-bottom>
+    <!-- your html content -->
+</jb-infinite-scroll>
+<!-- OR -->
+ <jb-infinite-scroll stick-to-bottom="true">
+    <!-- your html content -->
+</jb-infinite-scroll>
+```
+> Attention: scroll down only occurs when user also is on the bottom of the chat box. when new content comes. if user scrolled top (>100px) it will not stick to the bottom and respect user choice who need to read the top sections. if you need to scroll to the end in any cases please call `scrollToEnd()` method.
 
 ## Other Related Docs:
 

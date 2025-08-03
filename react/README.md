@@ -139,6 +139,17 @@ if you are using typeScript set it via `StateChangeWaitingBehavior` enum:
   <JBInfiniteScroll StateChangeWaitingBehavior={StateChangeWaitingBehavior.noWait}>
   </JBInfiniteScroll>
 ```
+
+## Stick To Bottom
+
+in some cases like chat boxes we need component scroll to stick to the bottom of the component so when ne message or content comes at the end box will automatically scroll to the end. to achieve this you just have to add `stickToBottom` prop to the react component.
+```jsx
+<JBInfiniteScroll stickToBottom>
+    <!-- your html content -->
+</JBInfiniteScroll>
+```
+> Attention: scroll down only occurs when user also is on the bottom of the chat box. when new content comes. if user scrolled top (>100px) it will not stick to the bottom and respect user choice who need to read the top sections. if you need to scroll to the end in any cases please call `scrollToEnd()` method.
+
 ## styling
 
 read the [jb-infinite-scroll](https://github.com/javadbat/jb-infinite-scroll) styling section it exactly the same.

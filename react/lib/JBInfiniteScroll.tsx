@@ -36,7 +36,6 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref: React.ForwardedRef
 });
 
 type JBInfiniteScrollProps = {
-
   className?: string,
   style?: React.CSSProperties,
 }

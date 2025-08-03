@@ -8,6 +8,7 @@ export type JBInfiniteScrollAttributes = {
   isListEmpty?: boolean,
   isLoading?: boolean,
   isListEnded?:boolean,
+  stickToBottom?:boolean,
 }
 export function useJBInfiniteScrollAttribute(element: RefObject<JBInfiniteScrollWebComponent>, props: JBInfiniteScrollAttributes) {
     useEffect(() => {
@@ -54,6 +55,16 @@ export function useJBInfiniteScrollAttribute(element: RefObject<JBInfiniteScroll
     }
 
   }, [element.current, props.disableCaptureScroll]);
+
+    useEffect(() => {
+    if (element.current) {
+      if (props.stickToBottom) {
+        element.current?.setAttribute('stick-to-bottom', '');
+      } else {
+        element.current?.removeAttribute('stick-to-bottom');
+      }
+    }
+  }, [element.current, props.stickToBottom]);
 
   useEffect(() => {
     if (props.stateChangeWaitingBehavior && element.current) {

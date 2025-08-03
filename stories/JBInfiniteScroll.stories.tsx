@@ -103,7 +103,36 @@ export const ScrollManipulation: Story = {
       );
     },
 };
+export const StickToBottom: Story = {
+  render: (args) => {
+    const ref = useRef(null);
+    const [list, setList] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    return (
+      <div>
+        <div style={{ height: "10rem", border: "solid 1px #666", overflow: "hidden" }}>
+          <JBInfiniteScroll {...args} ref={ref}>
+            <div slot="content">
+              {
+                list.map((item) => {
+                  return (<div key={item} style={{ border: 'solid 1px #black', fontSize: '3rem', textAlign: 'center', padding: '2rem' }}>{item}</div>);
+                })
+              }
+            </div>
+          </JBInfiniteScroll>
 
+        </div>
+        <JBButton size="sm" onClick={() => {
+          const i = list.at(-1)!
+          setList(l => [...l, ...[i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9]]);
+        }}>add more content to bottom</JBButton>
+      </div>
+
+    );
+  },
+  args: {
+    stickToBottom: true
+  }
+}
 export const Empty: Story = {
   args: {
     isListEmpty: true,
