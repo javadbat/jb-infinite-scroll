@@ -30,14 +30,20 @@ export class Automata {
     this.elements = elements;
   }
   init() {
-    this.elements.contentWrapper.addEventListener('scroll', this.#onScroll, {passive:true});
-    this.elements.contentSlot.addEventListener('slotchange', () => {
+    const observeNodes = ()=>{
       const nodes = this.elements.contentSlot.assignedNodes({ flatten: true });
-      nodes.forEach(el => {
+      nodes.forEach((el:Node)=> {
         if (el.nodeType == Node.ELEMENT_NODE) {
           this.#initObserver(el as HTMLElement);
         }
       })
+    }
+    this.elements.contentWrapper.addEventListener('scroll', this.#onScroll, { passive: true });
+    observeNodes();
+    this.elements.contentSlot.addEventListener('slotchange', () => {
+      //if for any reason content slot changes we will replace observed nodes with new one
+      this.#destructObservers();
+      observeNodes();
     },);
   }
   #initObserver(element: HTMLElement) {
@@ -52,10 +58,10 @@ export class Automata {
     this.observers.push(observer);
   }
   destruct() {
-    this.#destructObserver();
+    this.#destructObservers();
     this.elements.contentWrapper.removeEventListener('scroll', this.#onScroll)
   }
-  #destructObserver() {
+  #destructObservers() {
     this.observers.forEach((x) => x.disconnect());
   }
   //keep it arrow function for add and remove listener references
