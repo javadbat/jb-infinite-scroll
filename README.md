@@ -14,22 +14,23 @@ Infinite scroll web-component with  additional features including:
 - works well in chat bots for ability like `stick-to-bottom` and history loading
 
 ## Demo
- [codepen](https://codepen.io/javadbat/pen/EaYGGEo)
- [storybook](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll)
+
+- [codepen](https://codepen.io/javadbat/pen/EaYGGEo)
+- [storybook](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll)
 
 ## using with JS frameworks
 
 to use this component in **react** see [`jb-infinite-scroll/react`](https://github.com/javadbat/jb-infinite-scroll/tree/main/react);
 
 ## installation
+
 ```js
  import "jb-infinite-scroll";
 ```
 ## usage
+
 ```html
-
   <jb-infinite-scroll></jb-infinite-scroll>
-
 ```
 
 ## show content

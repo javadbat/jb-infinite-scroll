@@ -9,7 +9,7 @@ Demo in codeSandBox: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-inf
 ## usage
 first install component in npm or any other package manager
 
-```
+```sh
 npm i jb-infinite-scroll
 ```
 then import package and use it in react
