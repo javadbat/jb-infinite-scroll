@@ -1,5 +1,5 @@
 import { Automata } from './automata';
-import CSS from './jb-infinite-scroll.scss';
+import CSS from './jb-infinite-scroll.css';
 import { renderHTML } from './render';
 import { Elements, StateChangeWaitingBehavior } from './types.js';
 import "jb-loading";
