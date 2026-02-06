@@ -10,9 +10,12 @@
     "jb",
     "jb-infinite-scroll",
     "infinite scroll",
-    "web component"
+    "scroll manipulation",
+    "web component",
+    "react"
   ],
-  "version": "1.4.1",
+  "version": "1.5.0",
+  "homepage": "https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll",
   "bugs": "https://github.com/javadbat/jb-infinite-scroll/issues",
   "license": "MIT",
   "files": [

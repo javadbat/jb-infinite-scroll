@@ -15,7 +15,7 @@ Infinite scroll web-component with  additional features including:
 
 ## Demo
 
-- [codepen](https://codepen.io/javadbat/pen/EaYGGEo)
+- [codepen](https://codepen.io/javadbat/pen/EaYGGEo)    
 - [storybook](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll)
 
 ## using with JS frameworks

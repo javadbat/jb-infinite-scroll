@@ -5,6 +5,7 @@ import { useJBInfiniteScrollAttribute, JBInfiniteScrollAttributes } from './attr
 // eslint-disable-next-line no-duplicate-imports
 import { JBInfiniteScrollWebComponent, StateChangeWaitingBehavior } from "jb-infinite-scroll";
 import { EventProps, useEvents } from './events-hook.js';
+import type { JBElementStandardProps } from 'jb-core/react';
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -26,20 +27,16 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref: React.ForwardedRef
     () => (element ? element.current : undefined),
     [element],
   );
-
-  useJBInfiniteScrollAttribute(element, props);
-  useEvents(element, props);
+  const {onInit,onLoad,onScroll,onScrollEnd, disableCaptureScroll,isListEmpty,isListEnded,stateChangeWaitingBehavior,isLoading,stickToBottom, children, ...otherProps} = props;
+  useJBInfiniteScrollAttribute(element, {disableCaptureScroll,isListEmpty,isListEnded,stateChangeWaitingBehavior,isLoading,stickToBottom,});
+  useEvents(element, {onInit,onLoad,onScroll,onScrollEnd});
 
   return (
-    <jb-infinite-scroll style={props.style} class={props.className} ref={element}>{props.children}</jb-infinite-scroll>
+    <jb-infinite-scroll ref={element} {...otherProps}>{children}</jb-infinite-scroll>
   );
 });
 
-type JBInfiniteScrollProps = {
-  className?: string,
-  style?: React.CSSProperties,
-}
-export type Props = JBInfiniteScrollAttributes & EventProps & React.PropsWithChildren<JBInfiniteScrollProps>
+export type Props = JBInfiniteScrollAttributes & EventProps & React.PropsWithChildren<JBElementStandardProps>
 
 JBInfiniteScroll.displayName = "JBInfiniteScroll";
 
