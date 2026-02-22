@@ -2,7 +2,8 @@
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/jb-infinite-scroll)
 [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/javadbat/jb-infinite-scroll/main/LICENSE)
-[![NPM Downloads](https://img.shields.io/npm/dw/jb-infinite-scroll)](https://www.npmjs.com/package/jb-infinite-scroll)
+[![NPM Version](https://img.shields.io/npm/v/jb-infinite-scroll)](https://www.npmjs.com/package/jb-infinite-scroll)
+![GitHub Created At](https://img.shields.io/github/created-at/javadbat/jb-infinite-scroll)
 
 Infinite scroll web-component with  additional features including:
 

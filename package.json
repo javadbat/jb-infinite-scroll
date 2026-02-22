@@ -3,9 +3,9 @@
   "description": "infinite scroll web component",
   "type": "module",
   "author": {
-		"name": "mohammad javad bathaei",
-		"email": "javadbat@gmail.com"
-	},
+    "name": "mohammad javad bathaei",
+    "email": "javadbat@gmail.com"
+  },
   "keywords": [
     "jb",
     "jb-infinite-scroll",
@@ -14,7 +14,7 @@
     "web component",
     "react"
   ],
-  "version": "1.5.0",
+  "version": "1.6.1",
   "homepage": "https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll",
   "bugs": "https://github.com/javadbat/jb-infinite-scroll/issues",
   "license": "MIT",
@@ -29,10 +29,11 @@
   "main": "index.js",
   "types": "./dist/jb-infinite-scroll.d.ts",
   "repository": {
-		"type": "git",
-		"url": "git@github.com:javadbat/jb-infinite-scroll.git"
+    "type": "git",
+    "url": "git@github.com:javadbat/jb-infinite-scroll.git"
   },
   "dependencies": {
+    "jb-core": ">=0.24.0",
     "jb-loading": ">=1.6.0"
   }
 }

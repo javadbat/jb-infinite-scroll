@@ -1,10 +1,9 @@
 'use client';
-import React, { useRef, useCallback, useEffect, useImperativeHandle } from 'react';
+import React, { useRef, useImperativeHandle } from 'react';
 import "jb-infinite-scroll";
-import { useJBInfiniteScrollAttribute, JBInfiniteScrollAttributes } from './attributes-hook.js';
-// eslint-disable-next-line no-duplicate-imports
-import { JBInfiniteScrollWebComponent, StateChangeWaitingBehavior } from "jb-infinite-scroll";
-import { EventProps, useEvents } from './events-hook.js';
+import { useJBInfiniteScrollAttribute, type JBInfiniteScrollAttributes } from './attributes-hook.js';
+import { type JBInfiniteScrollWebComponent, StateChangeWaitingBehavior } from "jb-infinite-scroll";
+import { type EventProps, useEvents } from './events-hook.js';
 import type { JBElementStandardProps } from 'jb-core/react';
 
 declare module "react" {
@@ -36,7 +35,7 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref: React.ForwardedRef
   );
 });
 
-export type Props = JBInfiniteScrollAttributes & EventProps & React.PropsWithChildren<JBElementStandardProps>
+export type Props = JBInfiniteScrollAttributes & EventProps & React.PropsWithChildren<JBElementStandardProps<JBInfiniteScrollWebComponent, keyof JBInfiniteScrollAttributes & EventProps>>
 
 JBInfiniteScroll.displayName = "JBInfiniteScroll";
 
