@@ -1,7 +1,7 @@
 import { Automata } from './automata';
 import CSS from './jb-infinite-scroll.css';
 import { renderHTML } from './render';
-import { Elements, StateChangeWaitingBehavior } from './types.js';
+import { type Elements, StateChangeWaitingBehavior } from './types.js';
 import "jb-loading";
 
 export * from "./types.js";
@@ -23,6 +23,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     if (this.#externalIsListEmpty !== null) {
       return this.#externalIsListEmpty;
     }
+    return null;
   }
   #stateChangeWaitingBehavior: StateChangeWaitingBehavior = StateChangeWaitingBehavior.forceWait;
   #automata: Automata;
@@ -131,7 +132,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
       clonable:true,
       serializable:true,
     });
-    const html = `<style>${CSS}</style>` + '\n' + renderHTML();
+    const html = `<style>${CSS}</style>\n${renderHTML()}`;
     const element = document.createElement('template');
     element.innerHTML = html;
     shadowRoot.appendChild(element.content.cloneNode(true));
