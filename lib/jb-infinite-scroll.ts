@@ -18,7 +18,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
   #disableCaptureScroll = false;
   // if user set empty state from outside (change to manual mode)
   #externalIsListEmpty: boolean | null = null;
-  #internals: ElementInternals;
+  #internals!: ElementInternals;
   get #isListEmpty() {
     if (this.#externalIsListEmpty !== null) {
       return this.#externalIsListEmpty;
@@ -26,7 +26,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     return null;
   }
   #stateChangeWaitingBehavior: StateChangeWaitingBehavior = StateChangeWaitingBehavior.forceWait;
-  #automata: Automata;
+  #automata!: Automata;
   constructor() {
     super();
     if (typeof this.attachInternals == "function") {
@@ -87,7 +87,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     }
   }
   get isListEmpty() {
-    return this.#externalIsListEmpty;
+    return this.#externalIsListEmpty??false;
   }
   set isListEmpty(value: boolean) {
     this.#externalIsListEmpty = value;
@@ -150,7 +150,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
       },
       {
         contentWrapper:this.elements.contentWrapper,
-        contentSlot: this.elements.contentWrapper.querySelector('slot')
+        contentSlot: this.elements.contentWrapper.querySelector('slot')!
       }
     );
   }
