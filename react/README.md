@@ -1,5 +1,10 @@
 # jb-infinite-scroll React Component
 
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/jb-infinite-scroll)
+[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/javadbat/jb-infinite-scroll/main/LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/jb-infinite-scroll-react)](https://www.npmjs.com/package/jb-infinite-scroll-react)
+![GitHub Created At](https://img.shields.io/github/created-at/javadbat/jb-infinite-scroll)
+
 infinite scroll react component. 
 
 >this component is a react wrapper for [jb-infinite-scroll](https://github.com/javadbat/jb-infinite-scroll). so for more information read it's doc.
@@ -153,4 +158,3 @@ in some cases like chat boxes we need component scroll to stick to the bottom of
 ## styling
 
 read the [jb-infinite-scroll](https://github.com/javadbat/jb-infinite-scroll) styling section it exactly the same.
-
