@@ -11,7 +11,7 @@ infinite scroll react component.
 
 Demo in codeSandBox: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-infinite-scroll) for just see the demo and [codeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInfiniteScroll.tsx) if you want to see and play with code
 
-## usage
+## Usage
 first install component in npm or any other package manager
 
 ```sh
@@ -33,7 +33,7 @@ here is the overview of the component usage in an app:
       const [list, setList] = useState([1,2,3,4,5,6,7,8,9]);
       //loading is optional but you can use it when you load some data from API
       const [isLoading, setIsLoading] = useState(false);
-      //isListEnded is optional too but its better to set it so component dont capture scroll anymore
+      //isListEnded is optional too but its better to set it so component don't capture scroll anymore
       const [isListEnded,setIsListEnded] = useState(false);
       // when user scroll all the content to the end of list
       const onScrollEnd = ()=>{
@@ -155,6 +155,9 @@ in some cases like chat boxes we need component scroll to stick to the bottom of
 ```
 > Attention: scroll down only occurs when user also is on the bottom of the chat box. when new content comes. if user scrolled top (>100px) it will not stick to the bottom and respect user choice who need to read the top sections. if you need to scroll to the end in any cases please call `scrollToEnd()` method.
 
-## styling
-
+## Styling
 read the [jb-infinite-scroll](https://github.com/javadbat/jb-infinite-scroll) styling section it exactly the same.
+
+## Shared Documentation
+
+For web-component behavior, events, slots, and CSS variables, see [`jb-infinite-scroll`](https://github.com/javadbat/jb-infinite-scroll).

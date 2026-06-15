@@ -19,17 +19,14 @@ Infinite scroll web-component with  additional features including:
 - [codepen](https://codepen.io/javadbat/pen/EaYGGEo)    
 - [storybook](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll)
 
-## using with JS frameworks
-
+## Using With JS Frameworks
 - [<img src="https://img.shields.io/badge/React.js-jb--infinite--scroll%2Freact-000.svg?logo=react&logoColor=%2361DAFB" height="30" />](https://github.com/javadbat/jb-infinite-scroll/tree/main/react)
 
-## installation
-
+## Installation
 ```js
  import "jb-infinite-scroll";
 ```
-## usage
-
+## Usage
 ```html
   <jb-infinite-scroll></jb-infinite-scroll>
 ```
@@ -152,7 +149,7 @@ we do this to prevent multiple call for one scroll to the end, because in most c
     InfiniteScroll.scrollTo({ behavior: 'smooth', top: 400 })
     InfiniteScroll.scrollToEnd()
 ```
-## styling
+## Styling
 you can use `::part` to apply style on our web-component part
 ```css
 jb-infinite-scroll::part(content-wrapper){
@@ -179,8 +176,7 @@ in some cases like chat boxes we need component scroll to stick to the bottom of
 ```
 > Attention: scroll down only occurs when user also is on the bottom of the chat box. when new content comes. if user scrolled top (>100px) it will not stick to the bottom and respect user choice who need to read the top sections. if you need to scroll to the end in any cases please call `scrollToEnd()` method.
 
-## Other Related Docs:
-
+## Related Docs
 - see [jb-infinite-scroll/react](https://github.com/javadbat/jb-infinite-scroll/tree/main/react) if you want to use this component in react.
 
 - see [All JB Design system Component List](https://javadbat.github.io/design-system/
