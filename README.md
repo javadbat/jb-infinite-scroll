@@ -21,7 +21,7 @@ Infinite scroll web-component with  additional features including:
 
 ## using with JS frameworks
 
-to use this component in **react** see [`jb-infinite-scroll/react`](https://github.com/javadbat/jb-infinite-scroll/tree/main/react);
+- [<img src="https://img.shields.io/badge/React.js-jb--infinite--scroll%2Freact-000.svg?logo=react&logoColor=%2361DAFB" height="30" />](https://github.com/javadbat/jb-infinite-scroll/tree/main/react)
 
 ## installation
 
