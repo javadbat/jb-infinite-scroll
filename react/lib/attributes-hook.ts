@@ -10,7 +10,7 @@ export type JBInfiniteScrollAttributes = {
   isListEnded?:boolean,
   stickToBottom?:boolean,
 }
-export function useJBInfiniteScrollAttribute(element: RefObject<JBInfiniteScrollWebComponent>, props: JBInfiniteScrollAttributes) {
+export function useJBInfiniteScrollAttribute(element: RefObject<JBInfiniteScrollWebComponent|null>, props: JBInfiniteScrollAttributes) {
     useEffect(() => {
     if (element.current && typeof props.isLoading == "boolean") {
       if (props.isLoading) {
@@ -23,7 +23,7 @@ export function useJBInfiniteScrollAttribute(element: RefObject<JBInfiniteScroll
   }, [element.current, props.isLoading]);
 
   useEffect(() => {
-    if (element.current, typeof props.isListEmpty == "boolean") {
+    if (element.current && typeof props.isListEmpty == "boolean") {
       if (props.isListEmpty) {
         element.current.setAttribute('is-list-empty', 'true');
       } else {

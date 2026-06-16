@@ -5,180 +5,256 @@
 [![NPM Version](https://img.shields.io/npm/v/jb-infinite-scroll)](https://www.npmjs.com/package/jb-infinite-scroll)
 ![GitHub Created At](https://img.shields.io/github/created-at/javadbat/jb-infinite-scroll)
 
-Infinite scroll web-component with  additional features including:
+Infinite-scroll container web component with loading, empty, ended, scroll-capture, and chat-style stick-to-bottom states.
 
-- custom list ui
-- empty list state and custom empty list ui
-- end of the list state
-- enable/disable scroll capture
-- support loading state with customizable ui
-- works well in chat bots for ability like `stick-to-bottom` and history loading
+- Custom content slot.
+- Custom loading and empty states.
+- Scroll-end event for loading more data.
+- Capture guard to prevent duplicate load calls.
+- Stick-to-bottom behavior for chat or log views.
+
+## When to use
+
+Use `jb-infinite-scroll` when a scrollable area should ask the app to load more content as the user reaches the bottom.
+
+Use `stick-to-bottom` when the content behaves like a chat or log feed and should stay pinned to the bottom while the user is already near the bottom.
 
 ## Demo
 
-- [codepen](https://codepen.io/javadbat/pen/EaYGGEo)    
-- [storybook](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll)
+- [CodePen](https://codepen.io/javadbat/pen/EaYGGEo)
+- [Storybook](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll)
 
 ## Using With JS Frameworks
+
 - [<img src="https://img.shields.io/badge/React.js-jb--infinite--scroll%2Freact-000.svg?logo=react&logoColor=%2361DAFB" height="30" />](https://github.com/javadbat/jb-infinite-scroll/tree/main/react)
 
 ## Installation
+
+```sh
+npm i jb-infinite-scroll
+```
+
 ```js
- import "jb-infinite-scroll";
+import 'jb-infinite-scroll';
 ```
-## Usage
-```html
-  <jb-infinite-scroll></jb-infinite-scroll>
-```
-
-## show content
-
-you can show your content by placing any element with slot attribute `slot="content"` like the example below:
 
 ```html
-    <jb-infinite-scroll>
-        <div slot="content">
-            <div>item 1</div>
-            <div>item 2</div>
-            <div>item 3</div>
-        </div>
-    </jb-infinite-scroll>
-
+<jb-infinite-scroll>
+  <div slot="content">
+    <div>Item 1</div>
+    <div>Item 2</div>
+  </div>
+</jb-infinite-scroll>
 ```
 
-## add scroll callback
+## API reference
 
-you can add your onscroll callback function to `scrollEnd` event listener.
+### Attributes
 
-if `is-loading` ,`is-list-empty` ,`is-list-ended` or `disable-capture-scroll` is true  the callback function won't be executed.
+| name | type | default | description |
+| --- | --- | --- | --- |
+| `is-loading` | `boolean` | `false` | Shows loading UI and prevents `scrollEnd` capture while true. |
+| `is-list-empty` | `boolean` | `false` | Shows empty UI, hides content, and prevents `scrollEnd` capture while true. |
+| `is-list-ended` | `boolean` | `false` | Marks the list as ended and prevents future `scrollEnd` capture while true. |
+| `disable-capture-scroll` | `boolean` | `false` | Disables `scrollEnd` capture while true. |
+| `state-change-waiting-behavior` | `'FORCE_WAIT' \| 'NO_WAIT'` | `FORCE_WAIT` | Controls whether `scrollEnd` waits for a state change before it can fire again. |
+| `stick-to-bottom` | `boolean` | `false` | Keeps the scroll position at the bottom when content changes, unless the user has scrolled more than 100px from the bottom. |
 
-```js
-    const InfiniteScroll = document.getElementByTagName('jb-infinite-scroll');
-    jbInfiniteScroll.addEventListener('scrollEnd',() => {
-        //load your content here
-        console.log('scroll');
-    })
-```
+### Properties
 
-## set loading
+| name | type | readonly | description |
+| --- | --- | --- | --- |
+| `isLoading` | `boolean` | no | Shows loading UI and prevents `scrollEnd` capture while true. |
+| `isListEmpty` | `boolean` | no | Shows empty UI and prevents `scrollEnd` capture while true. |
+| `isListEnded` | `boolean` | no | Marks the list as ended and prevents future `scrollEnd` capture while true. |
+| `disableCaptureScroll` | `boolean` | no | Disables `scrollEnd` capture while true. |
+| `stateChangeWaitingBehavior` | `'FORCE_WAIT' \| 'NO_WAIT'` | no | Controls waiting behavior after `scrollEnd` fires. |
+| `canCaptureScroll` | `boolean` | yes | `true` when scroll capture is currently allowed. |
 
-you can show loading by setting `is-loading ="true"` attribute or `isLoading` property.
+### Methods
 
-```js
-    const jbInfiniteScroll = document.getElementByTagName('jb-infinite-scroll');
-    jbInfiniteScroll.isLoading = true;
-```
- you can also set your own loading ui by adding a slot with `slot="loading"` like the example below:
+| name | returns | description |
+| --- | --- | --- |
+| `scrollTo(options)` | `void` | Forwards `scrollTo` to the internal scrollable content wrapper. |
+| `scrollTo(x, y)` | `void` | Forwards coordinate scrolling to the internal scrollable content wrapper. |
+| `scrollToEnd(options?)` | `void` | Scrolls the internal content wrapper to the bottom. |
+
+### Events
+
+| event | detail | description |
+| --- | --- | --- |
+| `scroll` | none | Dispatched from the host when the internal content wrapper scrolls. |
+| `scrollEnd` | none | Dispatched when the internal scroll wrapper reaches the bottom and `canCaptureScroll` is true. |
+| `load` | none | Dispatched from `connectedCallback` before initialization. |
+| `init` | none | Dispatched from `connectedCallback` after initialization. |
+
+## Content
+
+Put the scrollable list or content in `slot="content"`.
 
 ```html
-    <jb-infinite-scroll is-loading="true">
-        <div slot="loading">
-            <p>your loading</p>
-        </div>
-    </jb-infinite-scroll>
-
+<jb-infinite-scroll>
+  <div slot="content">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+  </div>
+</jb-infinite-scroll>
 ```
 
-## set list empty
+## Load more on scroll end
 
-if there is no data to show you can set `is-list-empty = "true"`.
+Listen to `scrollEnd`, start your fetch, then update `isLoading`, `isListEnded`, or `isListEmpty` so the component can capture the next scroll when using the default `FORCE_WAIT` behavior.
 
 ```js
-    const jbInfiniteScroll = document.getElementByTagName('jb-infinite-scroll');
-    jbInfiniteScroll.isListEmpty = true;
-``` 
- you can set your own empty list ui by adding a slot with `slot="empty"` like the example below:
+const infiniteScroll = document.querySelector('jb-infinite-scroll');
+
+infiniteScroll.addEventListener('scrollEnd', async () => {
+  infiniteScroll.isLoading = true;
+
+  const nextItems = await loadMoreItems();
+  renderItems(nextItems);
+
+  infiniteScroll.isLoading = false;
+  infiniteScroll.isListEnded = nextItems.length === 0;
+});
+```
+
+`scrollEnd` is not dispatched while any of these are true:
+
+- `isLoading`
+- `isListEmpty`
+- `isListEnded`
+- `disableCaptureScroll`
+- waiting for a state change after a previous `scrollEnd` in `FORCE_WAIT` mode
+
+## Loading state
+
 ```html
-    <jb-infinite-scroll is-list-empty="true">
-        <div slot="empty">
-            <p>list is empty</p>
-        </div>
-    </jb-infinite-scroll>
-
+<jb-infinite-scroll is-loading="true">
+  <div slot="loading">Loading...</div>
+</jb-infinite-scroll>
 ```
-## set list ended
-if there is no more data to show you can set `is-list-ended = "true"`.this disables scroll capturing and `scrollEnd` event won't be called after.
 
 ```js
-    const jbInfiniteScroll = document.getElementByTagName('jb-infinite-scroll');
-    jbInfiniteScroll.isListEnded = true;
-``` 
+document.querySelector('jb-infinite-scroll').isLoading = true;
+```
+
+The default loading UI uses [`jb-loading`](https://github.com/javadbat/jb-loading).
+
+## Empty state
+
 ```html
-    <jb-infinite-scroll is-list-ended="true">
-    </jb-infinite-scroll>
-
+<jb-infinite-scroll is-list-empty="true">
+  <div slot="empty">No items found</div>
+</jb-infinite-scroll>
 ```
 
-## disable scroll capture
-in some cases if you want to disable capture scroll you can set `disable-capture-scroll = "true"`'
-
 ```js
-    const InfiniteScroll = document.getElementByTagName('jb-infinite-scroll');
-    InfiniteScroll.disableCaptureScroll = true;
-``` 
+document.querySelector('jb-infinite-scroll').isListEmpty = true;
+```
 
+## Ended state
 
+Use `is-list-ended` when there is no more data to load.
 
-
-## state-change-waiting-behavior
-
-by default `state-change-waiting-behavior` is `FORCE_WAIT` thats means when an scroll event fires,scroll is not captured until one of the `is-loading` ,`is-list-empty` ,`is-list-ended` states updates.
-if you want to change this behavior you can set `state-change-waiting-behavior` to `NO_WAIT`. that means the scroll callback in not dependent on `is-loading`,`is-list-empty`,`is-list-ended` state update.
-
-we do this to prevent multiple call for one scroll to the end, because in most cases you would set some loading or list ended state or list is empty state  after the scroll end called. but if you want to handle states by yourself and not use our state manager mechanism you can just set this to `NO_WAIT` to handle everything by yourself
-
-### usage overview
 ```html
-    <jb-infinite-scroll is-list-empty="true" is-loading="true">
-        <div slot="content">
-            <div>item 1</div>
-            <div>item 2</div>
-            <div>item 3</div>
-        </div>
-        <div slot="empty">
-            <p>list is empty</p>
-        </div>
-        <div slot="loading">
-            <p>loading</p>
-        </div>
-    </jb-infinite-scroll>
+<jb-infinite-scroll is-list-ended="true"></jb-infinite-scroll>
 ```
-## change scroll position
+
 ```js
-    const InfiniteScroll = document.getElementByTagName('jb-infinite-scroll');
-    InfiniteScroll.scrollTo({ behavior: 'smooth', top: 400 })
-    InfiniteScroll.scrollToEnd()
+document.querySelector('jb-infinite-scroll').isListEnded = true;
 ```
-## Styling
-you can use `::part` to apply style on our web-component part
-```css
-jb-infinite-scroll::part(content-wrapper){
-  display:'flex'
-}
-jb-infinite-scroll:states(loading)::part(loading-wrapper){
-  background:red;
-}
+
+## Disable scroll capture
+
+```js
+document.querySelector('jb-infinite-scroll').disableCaptureScroll = true;
 ```
-we have `content-wrapper`, `loading-wrapper`, `empty-list-wrapper`, `default-loading` as a supported part in our component. you can also combine them with `loading`, `empty` states for different style in different states.
-if you want to style default loading see [jb-loading](https://github.com/javadbat/jb-loading) styling section.
 
-## Stick To Bottom
+```html
+<jb-infinite-scroll disable-capture-scroll="true"></jb-infinite-scroll>
+```
 
-in some cases like chat boxes we need component scroll to stick to the bottom of the component so when ne message or content comes at the end box will automatically scroll to the end. to achieve this you just have to add `stick-to-bottom` attribute to the web component.
+## State-change waiting behavior
+
+The default `state-change-waiting-behavior` is `FORCE_WAIT`. After `scrollEnd` fires, the component waits until one of the state setters runs, such as `isLoading = true`, `isLoading = false`, `isListEnded = true`, or `isListEmpty = true`. This prevents multiple load calls for the same bottom position.
+
+Use `NO_WAIT` only when your app handles duplicate calls itself.
+
+```html
+<jb-infinite-scroll state-change-waiting-behavior="NO_WAIT"></jb-infinite-scroll>
+```
+
+## Change scroll position
+
+```js
+const infiniteScroll = document.querySelector('jb-infinite-scroll');
+
+infiniteScroll.scrollTo({ behavior: 'smooth', top: 400 });
+infiniteScroll.scrollToEnd({ behavior: 'smooth' });
+```
+
+## Stick to bottom
+
+Use `stick-to-bottom` for chat, logs, or feeds where new content should keep the scroll at the bottom while the user is already near the bottom.
+
 ```html
 <jb-infinite-scroll stick-to-bottom>
-    <!-- your html content -->
-</jb-infinite-scroll>
-<!-- OR -->
- <jb-infinite-scroll stick-to-bottom="true">
-    <!-- your html content -->
+  <div slot="content">
+    <!-- messages -->
+  </div>
 </jb-infinite-scroll>
 ```
-> Attention: scroll down only occurs when user also is on the bottom of the chat box. when new content comes. if user scrolled top (>100px) it will not stick to the bottom and respect user choice who need to read the top sections. if you need to scroll to the end in any cases please call `scrollToEnd()` method.
+
+If the user scrolls more than 100px away from the bottom, automatic stick-to-bottom pauses to respect the user's position. Call `scrollToEnd()` when you must force the bottom position.
+
+## Slots
+
+| slot | description |
+| --- | --- |
+| `content` | Scrollable list/content area. |
+| `loading` | Custom loading UI. Defaults to `jb-loading`. |
+| `empty` | Custom empty-list UI shown when `isListEmpty` is true. |
+
+## CSS parts and states
+
+| part | description |
+| --- | --- |
+| `content-wrapper` | Internal scrollable content wrapper. |
+| `loading-wrapper` | Loading wrapper shown while loading. |
+| `empty-list-wrapper` | Empty-list wrapper shown while empty. |
+| `default-loading` | Default `jb-loading` element inside the loading slot fallback. |
+
+| custom state | description |
+| --- | --- |
+| `loading` | Applied while `isLoading` is true. |
+| `empty` | Applied while `isListEmpty` is true. |
+
+```css
+jb-infinite-scroll::part(content-wrapper) {
+  scroll-behavior: smooth;
+}
+
+jb-infinite-scroll:state(loading)::part(loading-wrapper) {
+  padding: 1rem;
+}
+```
 
 ## Related Docs
-- see [jb-infinite-scroll/react](https://github.com/javadbat/jb-infinite-scroll/tree/main/react) if you want to use this component in react.
 
-- see [All JB Design system Component List](https://javadbat.github.io/design-system/
+- See [`jb-infinite-scroll/react`](https://github.com/javadbat/jb-infinite-scroll/tree/main/react) if you want to use this component in React.
+- See [All JB Design System Component List](https://javadbat.github.io/design-system/) for more components.
+- Use [Contribution Guide](https://github.com/javadbat/design-system/blob/main/docs/contribution-guide.md) if you want to contribute to this component.
 
-- use [Contribution Guide](https://github.com/javadbat/design-system/blob/main/docs/contribution-guide.md) if you want to contribute in this component.
+## AI agent notes
+
+- Import `jb-infinite-scroll` once before using `<jb-infinite-scroll>`.
+- Put the scrollable content inside `slot="content"`.
+- Listen to `scrollEnd` for load-more behavior.
+- Listen to `scroll` only when you need regular scroll-position updates from the internal scroll wrapper.
+- In default `FORCE_WAIT` mode, update a state such as `isLoading`, `isListEnded`, or `isListEmpty` after `scrollEnd` so future scroll capture can resume.
+- Set `isListEnded = true` when the API has no more data.
+- Use `scrollToEnd()` for chat/log views that need to force the bottom position.
+- This package includes [`custom-elements.json`](./custom-elements.json) and points to it with the package.json `customElements` field. The field is documented by the Custom Elements Manifest project in [Referencing manifests from npm packages](https://github.com/webcomponents/custom-elements-manifest#referencing-manifests-from-npm-packages).
+- In `custom-elements.json`, `exports.kind: "js"` describes JavaScript/TypeScript exports and `exports.kind: "custom-element-definition"` maps the `jb-infinite-scroll` tag name to `JBInfiniteScrollWebComponent`.

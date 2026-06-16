@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "README.md",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "lib/jb-infinite-scroll.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Infinite-scroll container web component with content, loading, empty, ended, scroll-capture control, and stick-to-bottom behavior for chat-like lists.",
+          "name": "JBInfiniteScrollWebComponent",
+          "tagName": "jb-infinite-scroll",
+          "customElement": true,
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "attributes": [
+            {
+              "name": "is-loading",
+              "description": "Shows the loading slot/default loading UI and prevents scrollEnd capture while true.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "name": "is-list-empty",
+              "description": "Shows the empty slot and hides content while true.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "name": "is-list-ended",
+              "description": "Marks the list as ended and prevents future scrollEnd capture while true.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "name": "disable-capture-scroll",
+              "description": "Disables scrollEnd capture while true.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "name": "state-change-waiting-behavior",
+              "description": "Controls whether scrollEnd capture waits for a state change after firing.",
+              "type": {
+                "text": "'FORCE_WAIT' | 'NO_WAIT'"
+              },
+              "default": "FORCE_WAIT"
+            },
+            {
+              "name": "stick-to-bottom",
+              "description": "Keeps the scroll position at the bottom when content changes, unless the user has scrolled more than 100px from the bottom.",
+              "type": {
+                "text": "boolean"
+              }
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "isLoading",
+              "description": "Shows loading UI and prevents scrollEnd capture while true.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "isListEmpty",
+              "description": "Shows empty UI and prevents scrollEnd capture while true.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "isListEnded",
+              "description": "Marks the list as ended and prevents future scrollEnd capture while true.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableCaptureScroll",
+              "description": "Disables scrollEnd capture while true.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "stateChangeWaitingBehavior",
+              "description": "Controls waiting behavior after scrollEnd fires.",
+              "type": {
+                "text": "'FORCE_WAIT' | 'NO_WAIT'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "canCaptureScroll",
+              "description": "True when scrollEnd can currently be captured. False while loading, empty, ended, waiting for state change, or disabled.",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            }
+          ],
+          "methods": [
+            {
+              "name": "scrollTo",
+              "description": "Forwards scrollTo to the internal scrollable content wrapper.",
+              "parameters": [
+                {
+                  "name": "optionsOrX",
+                  "type": {
+                    "text": "ScrollToOptions | number"
+                  }
+                },
+                {
+                  "name": "y",
+                  "type": {
+                    "text": "number"
+                  },
+                  "optional": true
+                }
+              ]
+            },
+            {
+              "name": "scrollToEnd",
+              "description": "Scrolls the internal content wrapper to the bottom.",
+              "parameters": [
+                {
+                  "name": "options",
+                  "type": {
+                    "text": "Omit<ScrollToOptions, 'top'>"
+                  },
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "scroll",
+              "description": "Dispatched from the host when the internal content wrapper scrolls."
+            },
+            {
+              "name": "scrollEnd",
+              "description": "Dispatched when the internal scroll wrapper reaches the bottom and canCaptureScroll is true."
+            },
+            {
+              "name": "load",
+              "description": "Dispatched from connectedCallback before initialization."
+            },
+            {
+              "name": "init",
+              "description": "Dispatched from connectedCallback after initialization."
+            }
+          ],
+          "slots": [
+            {
+              "name": "content",
+              "description": "Scrollable list/content area."
+            },
+            {
+              "name": "loading",
+              "description": "Custom loading UI. Defaults to jb-loading."
+            },
+            {
+              "name": "empty",
+              "description": "Custom empty-list UI shown when isListEmpty is true."
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "content-wrapper",
+              "description": "Internal scrollable content wrapper."
+            },
+            {
+              "name": "loading-wrapper",
+              "description": "Loading wrapper shown while loading."
+            },
+            {
+              "name": "empty-list-wrapper",
+              "description": "Empty-list wrapper shown while empty."
+            },
+            {
+              "name": "default-loading",
+              "description": "Default jb-loading element inside the loading slot fallback."
+            }
+          ],
+          "cssStates": [
+            {
+              "name": "loading",
+              "description": "Applied while isLoading is true."
+            },
+            {
+              "name": "empty",
+              "description": "Applied while isListEmpty is true."
+            }
+          ],
+          "cssProperties": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "JBInfiniteScrollWebComponent",
+          "declaration": {
+            "name": "JBInfiniteScrollWebComponent",
+            "module": "lib/jb-infinite-scroll.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "StateChangeWaitingBehavior",
+          "declaration": {
+            "name": "StateChangeWaitingBehavior",
+            "module": "lib/types.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "jb-infinite-scroll",
+          "declaration": {
+            "name": "JBInfiniteScrollWebComponent",
+            "module": "lib/jb-infinite-scroll.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -139,5 +139,11 @@ export const Empty: Story = {
     children: <div slot="empty">list is empty</div>,
   }
 };
-
+export const ScrollEventTest: Story = {
+  render:ActionTemplate.render,
+  args:{
+    ...ActionTemplate.args,
+    onScroll:(e)=>console.log("scrolled",e)
+  }
+}
 

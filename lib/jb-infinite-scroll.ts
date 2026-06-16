@@ -184,11 +184,16 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
   }
   #onScroll() {
     const { scrollTop, scrollHeight, clientHeight } = this.elements.contentWrapper;
+    this.#dispatchOnScroll();
     if (scrollTop + clientHeight + this.#endPageGap >= scrollHeight) {
       if (this.canCaptureScroll) {
         this.#onScrollEnd();
       }
     }
+  }
+  #dispatchOnScroll(){
+    const event = new Event("scroll",{bubbles:false,cancelable:false,composed:true});
+    this.dispatchEvent(event);
   }
   #setIsWaitingForStatChange(isWaitingStatus: boolean) {
 

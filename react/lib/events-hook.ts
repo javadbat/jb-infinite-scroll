@@ -18,7 +18,7 @@ export type EventProps = {
   onScroll?:(e:JBInfiniteScrollEventType<Event>)=>void
 
 }
-export function useEvents(element: RefObject<JBInfiniteScrollWebComponent>, props: EventProps) {
+export function useEvents(element: RefObject<JBInfiniteScrollWebComponent | null>, props: EventProps) {
   useEvent(element, 'load', props.onLoad, true);
   useEvent(element, 'init', props.onInit, true);
   useEvent(element, "scroll", props.onScroll);

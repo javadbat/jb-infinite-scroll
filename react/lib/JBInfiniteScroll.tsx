@@ -19,11 +19,11 @@ declare module "react" {
   }
 }
 
-const JBInfiniteScroll = React.forwardRef((props: Props, ref: React.ForwardedRef<JBInfiniteScrollWebComponent>) => {
+const JBInfiniteScroll = React.forwardRef((props: Props, ref: React.ForwardedRef<JBInfiniteScrollWebComponent|undefined>) => {
   const element = useRef<JBInfiniteScrollWebComponent>(null);
   useImperativeHandle(
     ref,
-    () => (element ? element.current : undefined),
+    () => (element.current??undefined),
     [element],
   );
   const {onInit,onLoad,onScroll,onScrollEnd, disableCaptureScroll,isListEmpty,isListEnded,stateChangeWaitingBehavior,isLoading,stickToBottom, children, ...otherProps} = props;

@@ -5,159 +5,188 @@
 [![NPM Version](https://img.shields.io/npm/v/jb-infinite-scroll-react)](https://www.npmjs.com/package/jb-infinite-scroll-react)
 ![GitHub Created At](https://img.shields.io/github/created-at/javadbat/jb-infinite-scroll)
 
-infinite scroll react component. 
+React wrapper for `jb-infinite-scroll`, an infinite-scroll container with loading, empty, ended, and stick-to-bottom states.
 
->this component is a react wrapper for [jb-infinite-scroll](https://github.com/javadbat/jb-infinite-scroll). so for more information read it's doc.
+## Demo
 
-Demo in codeSandBox: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-infinite-scroll) for just see the demo and [codeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInfiniteScroll.tsx) if you want to see and play with code
+- [Storybook](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll)
+- [CodeSandbox preview](https://3f63dj.csb.app/samples/jb-infinite-scroll)
+- [CodeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInfiniteScroll.tsx)
 
-## Usage
-first install component in npm or any other package manager
+## Installation
 
 ```sh
 npm i jb-infinite-scroll
 ```
-then import package and use it in react
 
 ```jsx
-import { JBInfiniteScroll } from "jb-infinite-scroll/react";
+import { JBInfiniteScroll } from 'jb-infinite-scroll/react';
 
-<JBInfiniteScroll></JBInfiniteScroll>
+<JBInfiniteScroll>
+  <div slot="content">Content</div>
+</JBInfiniteScroll>
 ```
 
-here is the overview of the component usage in an app:
+## When to use
+
+Use `JBInfiniteScroll` when a React view should load more content as the user reaches the bottom of a scrollable area.
+
+Use `stickToBottom` for chat or log views that should stay pinned to the bottom while the user is already near the bottom.
+
+## Props
+
+| prop | type | description |
+| --- | --- | --- |
+| `isLoading` | `boolean` | Shows loading UI and prevents `onScrollEnd` capture while true. |
+| `isListEmpty` | `boolean` | Shows empty UI, hides content, and prevents `onScrollEnd` capture while true. |
+| `isListEnded` | `boolean` | Marks the list as ended and prevents future `onScrollEnd` capture while true. |
+| `disableCaptureScroll` | `boolean` | Disables `onScrollEnd` capture while true. |
+| `stateChangeWaitingBehavior` | `StateChangeWaitingBehavior` | `FORCE_WAIT` or `NO_WAIT` behavior after `onScrollEnd`. |
+| `stickToBottom` | `boolean` | Keeps the scroll position at the bottom when content changes, unless the user has scrolled away. |
+
+## Events
+
+| prop | event | description |
+| --- | --- | --- |
+| `onScrollEnd` | `scrollEnd` | Fired when the internal scroll wrapper reaches the bottom and capture is allowed. |
+| `onInit` | `init` | Fired after initialization. |
+| `onLoad` | `load` | Fired before initialization. |
+| `onScroll` | `scroll` | Fired when the internal content wrapper scrolls. Prefer `onScrollEnd` for load-more behavior. |
+
+## Basic usage
 
 ```jsx
-      //using ref is optional but in some cases you may need direct access to web-component you can use this
-      const ref = useRef(null);
-      const [list, setList] = useState([1,2,3,4,5,6,7,8,9]);
-      //loading is optional but you can use it when you load some data from API
-      const [isLoading, setIsLoading] = useState(false);
-      //isListEnded is optional too but its better to set it so component don't capture scroll anymore
-      const [isListEnded,setIsListEnded] = useState(false);
-      // when user scroll all the content to the end of list
-      const onScrollEnd = ()=>{
-        const i = list.at(-1);
-        if(i>100){
-          setIsListEnded(true);
-        }
-        setIsLoading(true);
-        setTimeout(()=>{
-          setList([...list,...[i+1,i+2,i+3,i+4,i+5,i+6,i+7,i+8,i+9]]);
-          setIsLoading(false);
-        },1000);
-      }
-      return (
-          <JBInfiniteScroll ref={ref} onScrollEnd={onScrollEnd} isLoading={isLoading} isListEnded={isListEnded} disableCaptureScroll={isLoading}>
-            <div slot="content">
-              {
-                list.map((item)=>{
-                  return(<div key={item}>{item}</div>);
-                })
-              }
-            </div>
-          </JBInfiniteScroll>
-      );
+const ref = useRef(null);
+const [list, setList] = useState([1, 2, 3, 4, 5]);
+const [isLoading, setIsLoading] = useState(false);
+const [isListEnded, setIsListEnded] = useState(false);
+
+async function onScrollEnd() {
+  setIsLoading(true);
+
+  const nextItems = await loadMoreItems();
+  setList((current) => [...current, ...nextItems]);
+  setIsListEnded(nextItems.length === 0);
+  setIsLoading(false);
+}
+
+return (
+  <JBInfiniteScroll
+    ref={ref}
+    isLoading={isLoading}
+    isListEnded={isListEnded}
+    onScrollEnd={onScrollEnd}
+  >
+    <div slot="content">
+      {list.map((item) => (
+        <div key={item}>{item}</div>
+      ))}
+    </div>
+  </JBInfiniteScroll>
+);
 ```
 
-## content
-
-to show content you just have to place a html dom element with `slot="content"`prop on it in the component children area:
+## Content slot
 
 ```jsx
 <JBInfiniteScroll>
   <div slot="content">
-    <div>item 1</div>
-    <div>item 2</div>
-    <div>item 3</div>
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
   </div>
 </JBInfiniteScroll>
-
-```
-## onScrollEnd
-
-when user scroll content to the end we dispatch `onScrollEnd` event so ypu can load more content on demand
-
-```jsx
- <JBInfiniteScroll onScrollEnd={e=>{/*load your content here*/}}></JBInfiniteScroll>
 ```
 
-## set loading
-
-you can show loading by setting `isLoading ="true"` prop.
+## Loading and empty slots
 
 ```jsx
-    <JBInfiniteScroll isLoading={true}></JBInfiniteScroll>
-```
- you can also implement your own loading ui by adding a slot with `slot="loading"` like the example below:
-
-```jsx
-    <JBInfiniteScroll isLoading={true}>
-        <div slot="loading">
-            <p>your loading</p>
-        </div>
-    </JBInfiniteScroll>
-
-```
-## Empty List
-
-if there is no data to show you can set `isListEmpty = "true"`.
-
-```jsx
-<JBInfiniteScroll isListEmpty={true}></JBInfiniteScroll>
-``` 
- you can set your own empty list ui by adding a slot with `slot="empty"` like the example below:
-```html
-    <JBInfiniteScroll isListEmpty={true}>
-        <div slot="empty">
-            <p>list is empty</p>
-        </div>
-    </JBInfiniteScroll>
-
-```
-
-## set list ended
-if there is no more data to show you can set `isListEnded = "true"`.this disables scroll capturing and `onScrollEnd` event won't be called after.
-
-```jsx
-    <JBInfiniteScroll isListEnded="true">
-    </JBInfiniteScroll>
-```
-
-## disable scroll capture
-in some cases like when you load your content or your page didn't fully load or any other scenario you may want to disable `onScrollEnd` event so it does not capture anything. in this cases you can just set `disableCaptureScroll = "true"`' to disable event listener.
-
-```jsx
-    <JBInfiniteScroll disableCaptureScroll="true">
-    </JBInfiniteScroll>
-```
-
-## stateChangeWaitingBehavior
-
-by default `stateChangeWaitingBehavior` is `FORCE_WAIT` thats means when an scroll event fires, scroll is not captured until on of the `isLoading` ,`isListEmpty` ,`isListEnded` states updates.
-if you want to change this behavior you can set `stateChangeWaitingBehavior` to `NO_WAIT`. thats means the scroll callback in not dependent on `is-loading`,`is-list-empty`,`is-list-ended` state update.
-
-if you are using typeScript set it via `StateChangeWaitingBehavior` enum:
-
-```jsx
-  import {StateChangeWaitingBehavior} from 'jb-infinite-scroll'; 
-  <JBInfiniteScroll StateChangeWaitingBehavior={StateChangeWaitingBehavior.noWait}>
-  </JBInfiniteScroll>
-```
-
-## Stick To Bottom
-
-in some cases like chat boxes we need component scroll to stick to the bottom of the component so when ne message or content comes at the end box will automatically scroll to the end. to achieve this you just have to add `stickToBottom` prop to the react component.
-```jsx
-<JBInfiniteScroll stickToBottom>
-    <!-- your html content -->
+<JBInfiniteScroll isLoading>
+  <div slot="content">{items.map(renderItem)}</div>
+  <div slot="loading">Loading...</div>
 </JBInfiniteScroll>
 ```
-> Attention: scroll down only occurs when user also is on the bottom of the chat box. when new content comes. if user scrolled top (>100px) it will not stick to the bottom and respect user choice who need to read the top sections. if you need to scroll to the end in any cases please call `scrollToEnd()` method.
+
+```jsx
+<JBInfiniteScroll isListEmpty>
+  <div slot="empty">No items found</div>
+</JBInfiniteScroll>
+```
+
+## Ended and disabled capture
+
+```jsx
+<JBInfiniteScroll isListEnded>
+  <div slot="content">{items.map(renderItem)}</div>
+</JBInfiniteScroll>
+```
+
+```jsx
+<JBInfiniteScroll disableCaptureScroll={isPageBusy}>
+  <div slot="content">{items.map(renderItem)}</div>
+</JBInfiniteScroll>
+```
+
+## State-change waiting behavior
+
+The default behavior is `FORCE_WAIT`, which prevents repeated `onScrollEnd` calls until you update a state such as `isLoading`, `isListEnded`, or `isListEmpty`.
+
+```jsx
+import {
+  JBInfiniteScroll,
+  StateChangeWaitingBehavior,
+} from 'jb-infinite-scroll/react';
+
+<JBInfiniteScroll
+  stateChangeWaitingBehavior={StateChangeWaitingBehavior.noWait}
+  onScrollEnd={onScrollEnd}
+>
+  <div slot="content">{items.map(renderItem)}</div>
+</JBInfiniteScroll>
+```
+
+## Stick to bottom
+
+```jsx
+<JBInfiniteScroll stickToBottom>
+  <div slot="content">{messages.map(renderMessage)}</div>
+</JBInfiniteScroll>
+```
+
+If the user scrolls more than 100px away from the bottom, automatic stick-to-bottom pauses. Use the ref when you need to force the bottom position.
+
+```jsx
+ref.current?.scrollToEnd({ behavior: 'smooth' });
+```
 
 ## Styling
-read the [jb-infinite-scroll](https://github.com/javadbat/jb-infinite-scroll) styling section it exactly the same.
+
+The React component uses the same CSS parts and custom states as the web component.
+
+```css
+.chat-scroll::part(content-wrapper) {
+  scroll-behavior: smooth;
+}
+
+.chat-scroll:state(loading)::part(loading-wrapper) {
+  padding: 1rem;
+}
+```
+
+```jsx
+<JBInfiniteScroll className="chat-scroll" />
+```
 
 ## Shared Documentation
 
-For web-component behavior, events, slots, and CSS variables, see [`jb-infinite-scroll`](https://github.com/javadbat/jb-infinite-scroll).
+For web-component behavior, methods, events, slots, CSS parts, and the full API, see [`jb-infinite-scroll`](https://github.com/javadbat/jb-infinite-scroll).
+
+## AI agent notes
+
+- Import `JBInfiniteScroll` from `jb-infinite-scroll/react`; the wrapper imports and registers the underlying `jb-infinite-scroll` web component.
+- Put list content inside a child with `slot="content"`.
+- Use `onScrollEnd` for load-more behavior.
+- Use `onScroll` for regular scroll-position updates.
+- In default `FORCE_WAIT` mode, update `isLoading`, `isListEnded`, or `isListEmpty` after `onScrollEnd`.
+- Use `isListEnded` when the API has no more data.
+- Use `ref.current.scrollToEnd()` to force the scroll position to the bottom.

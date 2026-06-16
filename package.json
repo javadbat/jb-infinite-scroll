@@ -14,13 +14,14 @@
     "web component",
     "react"
   ],
-  "version": "1.6.1",
+  "version": "1.7.0",
   "homepage": "https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll",
   "bugs": "https://github.com/javadbat/jb-infinite-scroll/issues",
   "license": "MIT",
   "files": [
     "LICENSE",
     "README.md",
+    "custom-elements.json",
     "lib/",
     "dist/",
     "react/",
@@ -28,6 +29,7 @@
   ],
   "main": "index.js",
   "types": "./dist/jb-infinite-scroll.d.ts",
+  "customElements": "custom-elements.json",
   "repository": {
     "type": "git",
     "url": "git@github.com:javadbat/jb-infinite-scroll.git"
