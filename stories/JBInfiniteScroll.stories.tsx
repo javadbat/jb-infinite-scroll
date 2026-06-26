@@ -1,14 +1,14 @@
 import React, { Fragment, useRef, useState } from "react";
-import { JBInfiniteScroll, Props } from "jb-infinite-scroll/react";
+import { JBInfiniteScroll } from "jb-infinite-scroll/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import type { JBInfiniteScrollWebComponent } from "../dist/jb-infinite-scroll";
 import { JBButton } from 'jb-button/react';
-const meta: Meta<Props> = {
+const meta = {
   title: "Components/JBInfiniteScroll",
   component: JBInfiniteScroll,
-};
+} satisfies Meta<typeof JBInfiniteScroll>;
 export default meta;
-type Story = StoryObj<typeof JBInfiniteScroll>;
+type Story = StoryObj<typeof meta>;
 
 export const Normal: Story = {
   args: {
