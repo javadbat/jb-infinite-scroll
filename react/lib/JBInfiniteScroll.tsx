@@ -5,19 +5,7 @@ import { useJBInfiniteScrollAttribute, type JBInfiniteScrollAttributes } from '.
 import { type JBInfiniteScrollWebComponent, StateChangeWaitingBehavior } from "jb-infinite-scroll";
 import { type EventProps, useEvents } from './events-hook.js';
 import type { JBElementStandardProps } from 'jb-core/react';
-
-declare module "react" {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      'jb-infinite-scroll': JBInfiniteScrollType;
-    }
-    interface JBInfiniteScrollType extends React.DetailedHTMLProps<React.HTMLAttributes<JBInfiniteScrollWebComponent>, JBInfiniteScrollWebComponent> {
-      "class"?: string,
-      "type"?: string;
-    }
-  }
-}
+import './module-declaration.js';
 
 const JBInfiniteScroll = React.forwardRef((props: Props, ref: React.ForwardedRef<JBInfiniteScrollWebComponent|undefined>) => {
   const element = useRef<JBInfiniteScrollWebComponent>(null);
