@@ -54,7 +54,7 @@
             },
             {
               "name": "stick-to-bottom",
-              "description": "Keeps the scroll position at the bottom when content changes, unless the user has scrolled more than 100px from the bottom.",
+              "description": "Keeps the scroll position at the bottom when content changes, unless the user has scrolled more than 6.25rem from the bottom.",
               "type": {
                 "text": "boolean"
               }

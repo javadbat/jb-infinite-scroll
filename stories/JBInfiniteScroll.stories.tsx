@@ -132,7 +132,7 @@ export const ScrollManipulation: Story = {
           </div>
           <div style={{ marginTop: '1rem', 'display': 'flex', gap: '0.5rem' }}>
             <JBButton onClick={scrollToEnd}>scroll to end</JBButton>
-            <JBButton onClick={scrollTo} >scroll to 400px</JBButton>
+            <JBButton onClick={scrollTo} >scroll to 25rem</JBButton>
           </div>
         </Fragment>
       );
@@ -140,7 +140,7 @@ export const ScrollManipulation: Story = {
     play: async ({ canvasElement }) => {
       const infiniteScroll = getInfiniteScroll(canvasElement);
       const contentWrapper = getContentWrapper(infiniteScroll);
-      const scrollTo400Button = getJBButton(canvasElement, 'scroll to 400px');
+      const scrollTo400Button = getJBButton(canvasElement, 'scroll to 25rem');
       const scrollToEndButton = getJBButton(canvasElement, 'scroll to end');
 
       await userEvent.click(getJBButtonNativeButton(scrollTo400Button));

@@ -58,7 +58,7 @@ import 'jb-infinite-scroll';
 | `is-list-ended` | `boolean` | `false` | Marks the list as ended and prevents future `scrollEnd` capture while true. |
 | `disable-capture-scroll` | `boolean` | `false` | Disables `scrollEnd` capture while true. |
 | `state-change-waiting-behavior` | `'FORCE_WAIT' \| 'NO_WAIT'` | `FORCE_WAIT` | Controls whether `scrollEnd` waits for a state change before it can fire again. |
-| `stick-to-bottom` | `boolean` | `false` | Keeps the scroll position at the bottom when content changes, unless the user has scrolled more than 100px from the bottom. |
+| `stick-to-bottom` | `boolean` | `false` | Keeps the scroll position at the bottom when content changes, unless the user has scrolled more than 6.25rem from the bottom. |
 
 ### Properties
 
@@ -207,7 +207,7 @@ Use `stick-to-bottom` for chat, logs, or feeds where new content should keep the
 </jb-infinite-scroll>
 ```
 
-If the user scrolls more than 100px away from the bottom, automatic stick-to-bottom pauses to respect the user's position. Call `scrollToEnd()` when you must force the bottom position.
+If the user scrolls more than 6.25rem away from the bottom, automatic stick-to-bottom pauses to respect the user's position. Call `scrollToEnd()` when you must force the bottom position.
 
 ## Slots
 

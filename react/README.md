@@ -153,7 +153,7 @@ import {
 </JBInfiniteScroll>
 ```
 
-If the user scrolls more than 100px away from the bottom, automatic stick-to-bottom pauses. Use the ref when you need to force the bottom position.
+If the user scrolls more than 6.25rem away from the bottom, automatic stick-to-bottom pauses. Use the ref when you need to force the bottom position.
 
 ```jsx
 ref.current?.scrollToEnd({ behavior: 'smooth' });
