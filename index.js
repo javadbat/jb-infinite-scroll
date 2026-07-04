@@ -1,1 +1,1 @@
-export * from './dist/jb-infinite-scroll.js';
+export * from './web-component/dist/jb-infinite-scroll.js';

@@ -3,8 +3,9 @@ import type { ReactComponentBuildConfig, WebComponentBuildConfig } from "../../t
 export const webComponentList: WebComponentBuildConfig[] = [
   {
     name: "jb-infinite-scroll",
-    path: "./lib/jb-infinite-scroll.ts",
-    outputPath: "./dist/jb-infinite-scroll.js",
+    path: "./web-component/lib/jb-infinite-scroll.ts",
+    outputPath: "./web-component/dist/jb-infinite-scroll.js",
+    tsConfigPath: "./web-component/tsconfig.json",
     umdName: "JBInfiniteScroll",
     external: ["jb-loading", "jb-core"],
     globals: {
