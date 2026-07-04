@@ -1,0 +1,9 @@
+:host {
+  /* Size */
+  --width: var(--jb-infinite-scroll-width, 100%);
+  --height: var(--jb-infinite-scroll-height, 100%);
+  --loading-size: var(--jb-infinite-scroll-loading-size, 2.5rem);
+  --empty-padding: var(--jb-infinite-scroll-empty-padding, 1rem);
+  /* Other */
+  --content-overflow: var(--jb-infinite-scroll-content-overflow, auto);
+}
