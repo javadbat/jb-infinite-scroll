@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState } from "react";
 import { JBInfiniteScroll } from "jb-infinite-scroll/react";
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { JBInfiniteScrollWebComponent } from "../dist/jb-infinite-scroll";
 import { JBButton } from 'jb-button/react';
 import { expect, fn, userEvent, waitFor } from 'storybook/test';
