@@ -7,10 +7,11 @@ export const webComponentList: WebComponentBuildConfig[] = [
     outputPath: "./web-component/dist/jb-infinite-scroll.js",
     tsConfigPath: "./web-component/tsconfig.json",
     umdName: "JBInfiniteScroll",
-    external: ["jb-loading", "jb-core"],
+    external: ["jb-loading", "jb-core", "jb-core/i18n"],
     globals: {
       "jb-loading": "JBLoading",
-      "jb-core":"JBCore"
+      "jb-core":"JBCore",
+      "jb-core/i18n":"JBCoreI18N"
     },
   },
 ];

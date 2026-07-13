@@ -76,6 +76,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
   }
   set isLoading(value: boolean) {
     this.#isLoading = value;
+    if (this.#internals) this.#internals.ariaBusy = value ? "true" : "false";
     this.#setIsWaitingForStatChange(false);
     if (value) {
       this.elements?.loading.classList.add('--show');
@@ -97,6 +98,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
     } else {
       (this.#internals as any).states?.delete("empty");
     }
+    if (this.#internals) this.#internals.ariaDescription = value ? "The list is empty" : "";
     this.#setIsWaitingForStatChange(false);
     this.#updateListDisplayState();
 
