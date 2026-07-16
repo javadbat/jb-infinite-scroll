@@ -29,6 +29,17 @@
   ],
   "main": "index.js",
   "types": "./web-component/dist/jb-infinite-scroll.d.ts",
+  "exports": {
+    ".": {
+      "types": "./web-component/dist/jb-infinite-scroll.d.ts",
+      "default": "./index.js"
+    },
+    "./react": {
+      "types": "./react/dist/JBInfiniteScroll.d.ts",
+      "default": "./react/index.js"
+    },
+    "./*": "./*"
+  },
   "customElements": "web-component/custom-elements.json",
   "repository": {
     "type": "git",
