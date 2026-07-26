@@ -28,6 +28,6 @@
   },
   "types": "./dist/JBInfiniteScroll.d.ts",
   "dependencies": {
-    "jb-infinite-scroll": ">=1.0.0"
+    "jb-infinite-scroll": "^1.0.0"
   }
 }
