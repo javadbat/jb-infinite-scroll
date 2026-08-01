@@ -4,6 +4,7 @@ import VariablesCSS from './variables.css';
 import { renderHTML } from './render';
 import { type Elements, StateChangeWaitingBehavior } from './types.js';
 import "jb-loading";
+import { parseBooleanAttribute } from "jb-core";
 
 export * from "./types.js";
 
@@ -146,7 +147,7 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
       loadingWrapper: shadowRoot.querySelector('.loading-wrapper')!,
       emptyListWrapper: shadowRoot.querySelector('.empty-list-wrapper')!,
     } as const;
-    this.isLoading = this.hasAttribute('is-loading') ? this.getAttribute('is-loading') === 'true' : this.#isLoading;
+    this.isLoading = parseBooleanAttribute(this.getAttribute('is-loading'), this.#isLoading);
     this.#automata = new Automata(
       {
         scrollToEnd: this.scrollToEnd.bind(this)
@@ -230,44 +231,23 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
   #onAttributeChange(name: string, value: string) {
     switch (name) {
       case 'is-loading':
-        if (value === 'true' || value ==='') {
-          this.isLoading = true;
-        } else {
-          this.isLoading = false;
-        }
+        this.isLoading = parseBooleanAttribute(value);
         break;
       case 'is-list-empty':
-        if (value === 'true' || value ==='' ) {
-          this.isListEmpty = true;
-        } else {
-          this.isListEmpty = false;
-        }
+        this.isListEmpty = parseBooleanAttribute(value);
         break;
       case 'is-list-ended':
-        if (value === 'true' || value ==='') {
-          this.#isListEnded = true;
-        } else {
-          this.#isListEnded = false;
-        }
+        this.#isListEnded = parseBooleanAttribute(value);
         break;
 
       case 'disable-capture-scroll':
-        if (value === 'true' || value ==='') {
-          this.#disableCaptureScroll = true;
-        } else {
-          this.#disableCaptureScroll = false;
-
-        }
+        this.#disableCaptureScroll = parseBooleanAttribute(value);
         break;
       case 'state-change-waiting-behavior':
         this.#stateChangeWaitingBehavior = this.#mapStateChangeWaitingBehavior(value);
         break;
       case `stick-to-bottom`:
-        if (value === 'true' || value ==='') {
-          this.#automata.stickToBottom = true;
-        } else {
-          this.#automata.stickToBottom = false;
-        }
+        this.#automata.stickToBottom = parseBooleanAttribute(value);
         break;
 
 

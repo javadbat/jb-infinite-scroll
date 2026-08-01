@@ -46,7 +46,7 @@
     "url": "git@github.com:javadbat/jb-infinite-scroll.git"
   },
   "dependencies": {
-    "jb-core": "^0.25.0",
+    "jb-core": "^0.30.0",
     "jb-loading": "^1.6.0"
   }
 }
