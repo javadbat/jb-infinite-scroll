@@ -15,18 +15,19 @@ Infinite-scroll container web component with loading, empty, ended, scroll-captu
 
 ## When to use
 
-Use `jb-infinite-scroll` when a scrollable area should ask the app to load more content as the user reaches the bottom.
+Use `jb-infinite-scroll` when a scrollable area should ask the app to load more content as the user reaches the bottom. Start with the [normal content demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--normal).
 
-Use `stick-to-bottom` when the content behaves like a chat or log feed and should stay pinned to the bottom while the user is already near the bottom.
+Use `stick-to-bottom` when the content behaves like a chat or log feed and should stay pinned to the bottom while the user is already near the bottom; see the [stick-to-bottom demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--stick-to-bottom).
 
 ## Demo
 
 - [CodePen](https://codepen.io/javadbat/pen/EaYGGEo)
-- [Storybook](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll)
+- [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--overview)
+- [Load-more demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--action-template)
 
 ## Using With JS Frameworks
 
-<a href="https://github.com/javadbat/jb-infinite-scroll/tree/main/react" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/React.js-jb--infinite--scroll%2Freact-000.svg?logo=react&logoColor=%2361DAFB" height="30" /></a>
+<a href="https://github.com/javadbat/jb-infinite-scroll/tree/main/react" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/React.js-jb--infinite--scroll%2Freact-000.svg?logo=react&logoColor=%2361DAFB" height="30" /></a> See the [React documentation](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll-react-readme--docs).
 
 Other integrations: <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#angular" target="_blank" rel="noopener noreferrer">Angular</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#vue" target="_blank" rel="noopener noreferrer">Vue</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#nuxt" target="_blank" rel="noopener noreferrer">Nuxt</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#svelte" target="_blank" rel="noopener noreferrer">Svelte</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#sveltekit" target="_blank" rel="noopener noreferrer">SvelteKit</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#solidjs" target="_blank" rel="noopener noreferrer">SolidJS</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#lit" target="_blank" rel="noopener noreferrer">Lit</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#nextjs" target="_blank" rel="noopener noreferrer">Next.js</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#astro" target="_blank" rel="noopener noreferrer">Astro</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#blazor" target="_blank" rel="noopener noreferrer">Blazor</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#server-rendered-templates" target="_blank" rel="noopener noreferrer">Server-rendered templates</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#wordpress" target="_blank" rel="noopener noreferrer">WordPress</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#alpinejs-and-htmx" target="_blank" rel="noopener noreferrer">Alpine.js and HTMX</a>
 
@@ -55,44 +56,44 @@ import 'jb-infinite-scroll';
 
 | name | type | default | description |
 | --- | --- | --- | --- |
-| `is-loading` | `boolean` | `false` | Shows loading UI and prevents `scrollEnd` capture while true. |
-| `is-list-empty` | `boolean` | `false` | Shows empty UI, hides content, and prevents `scrollEnd` capture while true. |
-| `is-list-ended` | `boolean` | `false` | Marks the list as ended and prevents future `scrollEnd` capture while true. |
-| `disable-capture-scroll` | `boolean` | `false` | Disables `scrollEnd` capture while true. |
-| `state-change-waiting-behavior` | `'FORCE_WAIT' \| 'NO_WAIT'` | `FORCE_WAIT` | Controls whether `scrollEnd` waits for a state change before it can fire again. |
-| `stick-to-bottom` | `boolean` | `false` | Keeps the scroll position at the bottom when content changes, unless the user has scrolled more than 6.25rem from the bottom. |
+| `is-loading` | `boolean` | `false` | Shows loading UI and prevents `scrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
+| `is-list-empty` | `boolean` | `false` | Shows empty UI, hides content, and prevents `scrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--empty) |
+| `is-list-ended` | `boolean` | `false` | Marks the list as ended and prevents future `scrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
+| `disable-capture-scroll` | `boolean` | `false` | Disables `scrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
+| `state-change-waiting-behavior` | `'FORCE_WAIT' \| 'NO_WAIT'` | `FORCE_WAIT` | Controls whether `scrollEnd` waits for a state change before it can fire again. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
+| `stick-to-bottom` | `boolean` | `false` | Keeps the scroll position at the bottom when content changes, unless the user has scrolled more than 6.25rem from the bottom. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--stick-to-bottom) |
 
 ### Properties
 
 | name | type | readonly | description |
 | --- | --- | --- | --- |
-| `isLoading` | `boolean` | no | Shows loading UI and prevents `scrollEnd` capture while true. |
-| `isListEmpty` | `boolean` | no | Shows empty UI and prevents `scrollEnd` capture while true. |
-| `isListEnded` | `boolean` | no | Marks the list as ended and prevents future `scrollEnd` capture while true. |
-| `disableCaptureScroll` | `boolean` | no | Disables `scrollEnd` capture while true. |
-| `stateChangeWaitingBehavior` | `'FORCE_WAIT' \| 'NO_WAIT'` | no | Controls waiting behavior after `scrollEnd` fires. |
-| `canCaptureScroll` | `boolean` | yes | `true` when scroll capture is currently allowed. |
+| `isLoading` | `boolean` | no | Shows loading UI and prevents `scrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
+| `isListEmpty` | `boolean` | no | Shows empty UI and prevents `scrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--empty) |
+| `isListEnded` | `boolean` | no | Marks the list as ended and prevents future `scrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
+| `disableCaptureScroll` | `boolean` | no | Disables `scrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
+| `stateChangeWaitingBehavior` | `'FORCE_WAIT' \| 'NO_WAIT'` | no | Controls waiting behavior after `scrollEnd` fires. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
+| `canCaptureScroll` | `boolean` | yes | `true` when scroll capture is currently allowed. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
 
 ### Methods
 
 | name | returns | description |
 | --- | --- | --- |
-| `scrollTo(options)` | `void` | Forwards `scrollTo` to the internal scrollable content wrapper. |
-| `scrollTo(x, y)` | `void` | Forwards coordinate scrolling to the internal scrollable content wrapper. |
-| `scrollToEnd(options?)` | `void` | Scrolls the internal content wrapper to the bottom. |
+| `scrollTo(options)` | `void` | Forwards `scrollTo` to the internal scrollable content wrapper. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--scroll-manipulation) |
+| `scrollTo(x, y)` | `void` | Forwards coordinate scrolling to the internal scrollable content wrapper. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--scroll-manipulation) |
+| `scrollToEnd(options?)` | `void` | Scrolls the internal content wrapper to the bottom. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--scroll-manipulation) |
 
 ### Events
 
 | event | detail | description |
 | --- | --- | --- |
-| `scroll` | none | Dispatched from the host when the internal content wrapper scrolls. |
-| `scrollEnd` | none | Dispatched when the internal scroll wrapper reaches the bottom and `canCaptureScroll` is true. |
-| `load` | none | Dispatched from `connectedCallback` before initialization. |
-| `init` | none | Dispatched from `connectedCallback` after initialization. |
+| `scroll` | none | Dispatched from the host when the internal content wrapper scrolls. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--scroll-event-test) |
+| `scrollEnd` | none | Dispatched when the internal scroll wrapper reaches the bottom and `canCaptureScroll` is true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--action-template) |
+| `load` | none | Dispatched from `connectedCallback` before initialization. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--normal) |
+| `init` | none | Dispatched from `connectedCallback` after initialization. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--normal) |
 
 ## Content
 
-Put the scrollable list or content in `slot="content"`.
+Put the scrollable list or content in `slot="content"`; the [normal content demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--normal) shows the required slot.
 
 ```html
 <jb-infinite-scroll>
@@ -106,7 +107,7 @@ Put the scrollable list or content in `slot="content"`.
 
 ## Load more on scroll end
 
-Listen to `scrollEnd`, start your fetch, then update `isLoading`, `isListEnded`, or `isListEmpty` so the component can capture the next scroll when using the default `FORCE_WAIT` behavior.
+Listen to `scrollEnd`, start your fetch, then update `isLoading`, `isListEnded`, or `isListEmpty` so the component can capture the next scroll when using the default `FORCE_WAIT` behavior. The [load-more demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--action-template) shows this cycle.
 
 ```js
 const infiniteScroll = document.querySelector('jb-infinite-scroll');
@@ -132,6 +133,8 @@ infiniteScroll.addEventListener('scrollEnd', async () => {
 
 ## Loading state
 
+The [load-more demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--action-template) shows the default loading state while new content is fetched.
+
 ```html
 <jb-infinite-scroll is-loading="true">
   <div slot="loading">Loading...</div>
@@ -146,6 +149,8 @@ The default loading UI uses [`jb-loading`](https://github.com/javadbat/jb-loadin
 
 ## Empty state
 
+Use the [empty state demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--empty) to see custom empty-slot content.
+
 ```html
 <jb-infinite-scroll is-list-empty="true">
   <div slot="empty">No items found</div>
@@ -158,7 +163,7 @@ document.querySelector('jb-infinite-scroll').isListEmpty = true;
 
 ## Ended state
 
-Use `is-list-ended` when there is no more data to load.
+Use `is-list-ended` when there is no more data to load. Its capture guard is covered in the [state guards demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards).
 
 ```html
 <jb-infinite-scroll is-list-ended="true"></jb-infinite-scroll>
@@ -170,6 +175,8 @@ document.querySelector('jb-infinite-scroll').isListEnded = true;
 
 ## Disable scroll capture
 
+Use the [state guards demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) to compare disabled capture with loading, empty, ended, and `NO_WAIT` modes.
+
 ```js
 document.querySelector('jb-infinite-scroll').disableCaptureScroll = true;
 ```
@@ -180,7 +187,7 @@ document.querySelector('jb-infinite-scroll').disableCaptureScroll = true;
 
 ## State-change waiting behavior
 
-The default `state-change-waiting-behavior` is `FORCE_WAIT`. After `scrollEnd` fires, the component waits until one of the state setters runs, such as `isLoading = true`, `isLoading = false`, `isListEnded = true`, or `isListEmpty = true`. This prevents multiple load calls for the same bottom position.
+The default `state-change-waiting-behavior` is `FORCE_WAIT`. After `scrollEnd` fires, the component waits until one of the state setters runs, such as `isLoading = true`, `isLoading = false`, `isListEnded = true`, or `isListEmpty = true`. This prevents multiple load calls for the same bottom position. Compare it with `NO_WAIT` in the [state guards demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards).
 
 Use `NO_WAIT` only when your app handles duplicate calls itself.
 
@@ -189,6 +196,8 @@ Use `NO_WAIT` only when your app handles duplicate calls itself.
 ```
 
 ## Change scroll position
+
+The [scroll manipulation demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--scroll-manipulation) provides controls for both methods.
 
 ```js
 const infiniteScroll = document.querySelector('jb-infinite-scroll');
@@ -199,7 +208,7 @@ infiniteScroll.scrollToEnd({ behavior: 'smooth' });
 
 ## Stick to bottom
 
-Use `stick-to-bottom` for chat, logs, or feeds where new content should keep the scroll at the bottom while the user is already near the bottom.
+Use `stick-to-bottom` for chat, logs, or feeds where new content should keep the scroll at the bottom while the user is already near the bottom. The [stick-to-bottom demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--stick-to-bottom) shows content growth while pinned.
 
 ```html
 <jb-infinite-scroll stick-to-bottom>
@@ -213,6 +222,8 @@ If the user scrolls more than 6.25rem away from the bottom, automatic stick-to-b
 
 ## Slots
 
+The [normal demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--normal) uses the content slot, while the [empty demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--empty) uses the empty slot.
+
 | slot | description |
 | --- | --- |
 | `content` | Scrollable list/content area. |
@@ -220,6 +231,8 @@ If the user scrolls more than 6.25rem away from the bottom, automatic stick-to-b
 | `empty` | Custom empty-list UI shown when `isListEmpty` is true. |
 
 ## CSS parts and states
+
+Styling is shared with the web component; the [scroll manipulation demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--scroll-manipulation) provides a visible scroll container for inspecting these parts and states.
 
 | part | description |
 | --- | --- |

@@ -1,5 +1,5 @@
 import React, { Fragment, useRef, useState } from "react";
-import { JBInfiniteScroll } from "jb-infinite-scroll/react";
+import { JBInfiniteScroll, StateChangeWaitingBehavior } from "jb-infinite-scroll/react";
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { JBInfiniteScrollWebComponent } from "../dist/jb-infinite-scroll";
 import { JBButton } from 'jb-button/react';
@@ -90,6 +90,44 @@ export const ActionTemplate: Story = {
         expect(infiniteScroll.isLoading).toBe(false);
       }, { timeout: 2000 });
     }
+};
+
+export const StateGuards: Story = {
+  render: () => (
+    <div style={{ display: "grid", gap: "1rem", height: "20rem" }}>
+      <JBInfiniteScroll data-testid="loading-guard" isLoading>
+        <div slot="content">Loading content</div>
+      </JBInfiniteScroll>
+      <JBInfiniteScroll data-testid="empty-guard" isListEmpty>
+        <div slot="empty">No items found</div>
+      </JBInfiniteScroll>
+      <JBInfiniteScroll data-testid="ended-guard" isListEnded>
+        <div slot="content">The end</div>
+      </JBInfiniteScroll>
+      <JBInfiniteScroll data-testid="disabled-guard" disableCaptureScroll>
+        <div slot="content">Capture disabled</div>
+      </JBInfiniteScroll>
+      <JBInfiniteScroll data-testid="no-wait-guard" stateChangeWaitingBehavior={StateChangeWaitingBehavior.noWait}>
+        <div slot="content">No-wait mode</div>
+      </JBInfiniteScroll>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const getGuard = (name: string) => canvasElement.querySelector<JBInfiniteScrollWebComponent>(`[data-testid="${name}"]`);
+
+    await waitFor(() => {
+      expect(getGuard("loading-guard")?.isLoading).toBe(true);
+      expect(getGuard("loading-guard")?.canCaptureScroll).toBe(false);
+      expect(getGuard("empty-guard")?.isListEmpty).toBe(true);
+      expect(getGuard("empty-guard")?.canCaptureScroll).toBe(false);
+      expect(getGuard("ended-guard")?.isListEnded).toBe(true);
+      expect(getGuard("ended-guard")?.canCaptureScroll).toBe(false);
+      expect(getGuard("disabled-guard")?.disableCaptureScroll).toBe(true);
+      expect(getGuard("disabled-guard")?.canCaptureScroll).toBe(false);
+      expect(getGuard("no-wait-guard")?.stateChangeWaitingBehavior).toBe(StateChangeWaitingBehavior.noWait);
+      expect(getGuard("no-wait-guard")?.canCaptureScroll).toBe(true);
+    });
+  },
 };
 
 export const ScrollManipulation: Story = {
