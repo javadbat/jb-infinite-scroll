@@ -1,14 +1,14 @@
+import { defineWebComponent, JBBaseComponent, parseBooleanAttribute } from "jb-core";
 import { Automata } from './automata';
 import CSS from './jb-infinite-scroll.css';
 import VariablesCSS from './variables.css';
 import { renderHTML } from './render';
 import { type Elements, StateChangeWaitingBehavior } from './types.js';
 import "jb-loading";
-import { parseBooleanAttribute } from "jb-core";
 
 export * from "./types.js";
 
-export class JBInfiniteScrollWebComponent extends HTMLElement {
+export class JBInfiniteScrollWebComponent extends JBBaseComponent {
   elements!: Elements;
   #isLoading = false;
   //the amount of space that we listen to for trigger refresh 
@@ -255,7 +255,4 @@ export class JBInfiniteScrollWebComponent extends HTMLElement {
 
   }
 }
-const myElementNotExists = !customElements.get('jb-infinite-scroll');
-if (myElementNotExists) {
-  window.customElements.define('jb-infinite-scroll', JBInfiniteScrollWebComponent);
-}
+defineWebComponent('jb-infinite-scroll', JBInfiniteScrollWebComponent);
