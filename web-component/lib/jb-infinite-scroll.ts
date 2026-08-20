@@ -256,3 +256,9 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
   }
 }
 defineWebComponent('jb-infinite-scroll', JBInfiniteScrollWebComponent);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "jb-infinite-scroll": JBInfiniteScrollWebComponent;
+  }
+}
