@@ -24,7 +24,7 @@
   "main": "index.js",
   "repository": {
 		"type": "git",
-		"url": "git@github.com:javadbat/jb-infinite-scroll.git"
+		"url": "https://github.com/javadbat/jb-infinite-scroll.git"
   },
   "types": "./dist/JBInfiniteScroll.d.ts",
   "dependencies": {
