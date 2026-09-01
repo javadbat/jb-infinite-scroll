@@ -14,7 +14,7 @@
     "web component",
     "react"
   ],
-  "version": "1.7.0",
+  "version": "1.8.0",
   "homepage": "https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll",
   "bugs": "https://github.com/javadbat/jb-infinite-scroll/issues",
   "license": "MIT",
@@ -46,7 +46,7 @@
     "url": "https://github.com/javadbat/jb-infinite-scroll.git"
   },
   "dependencies": {
-    "jb-core": "^0.35.0",
-    "jb-loading": "^1.6.0"
+    "jb-core": "^0.36.0",
+    "jb-loading": "^1.8.1"
   }
 }
