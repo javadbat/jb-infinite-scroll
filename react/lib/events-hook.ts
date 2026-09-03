@@ -22,5 +22,5 @@ export function useEvents(element: RefObject<JBInfiniteScrollWebComponent | null
   useEvent(element, 'load', props.onLoad, true);
   useEvent(element, 'init', props.onInit, true);
   useEvent(element, "scroll", props.onScroll);
-  useEvent(element, "scrollEnd", props.onScrollEnd, true);
+  useEvent(element, "scroll-end", props.onScrollEnd, true);
 }

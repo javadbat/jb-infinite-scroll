@@ -9,7 +9,7 @@ export function getInfiniteScroll(canvasElement: HTMLElement, index = 0) {
 }
 
 export function getContentWrapper(infiniteScroll: JBInfiniteScrollWebComponent) {
-  const contentWrapper = infiniteScroll.shadowRoot?.querySelector<HTMLDivElement>('.content-wrapper');
+  const contentWrapper = infiniteScroll.shadowRoot?.querySelector<HTMLDivElement>('.content');
   expect(contentWrapper).toBeTruthy();
   return contentWrapper!;
 }

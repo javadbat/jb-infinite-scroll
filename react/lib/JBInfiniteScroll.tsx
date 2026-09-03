@@ -14,8 +14,8 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref: React.ForwardedRef
     () => (element.current??undefined),
     [element],
   );
-  const {onInit,onLoad,onScroll,onScrollEnd, disableCaptureScroll,isListEmpty,isListEnded,stateChangeWaitingBehavior,isLoading,stickToBottom, children, ...otherProps} = props;
-  useJBInfiniteScrollAttribute(element, {disableCaptureScroll,isListEmpty,isListEnded,stateChangeWaitingBehavior,isLoading,stickToBottom,});
+  const {onInit,onLoad,onScroll,onScrollEnd, disableCaptureScroll,isEmpty,hasMore,stateChangeWaitingBehavior,isLoading,stickToBottom, children, ...otherProps} = props;
+  useJBInfiniteScrollAttribute(element, {disableCaptureScroll,isEmpty,hasMore,stateChangeWaitingBehavior,isLoading,stickToBottom,});
   useEvents(element, {onInit,onLoad,onScroll,onScrollEnd});
 
   return (

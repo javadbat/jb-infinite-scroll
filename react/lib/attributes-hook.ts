@@ -5,9 +5,9 @@ import { RefObject, useEffect } from "react";
 export type JBInfiniteScrollAttributes = {
   stateChangeWaitingBehavior?: StateChangeWaitingBehavior,
   disableCaptureScroll?: boolean,
-  isListEmpty?: boolean,
+  isEmpty?: boolean,
   isLoading?: boolean,
-  isListEnded?:boolean,
+  hasMore?:boolean,
   stickToBottom?:boolean,
 }
 export function useJBInfiniteScrollAttribute(element: RefObject<JBInfiniteScrollWebComponent|null>, props: JBInfiniteScrollAttributes) {
@@ -23,27 +23,27 @@ export function useJBInfiniteScrollAttribute(element: RefObject<JBInfiniteScroll
   }, [element.current, props.isLoading]);
 
   useEffect(() => {
-    if (element.current && typeof props.isListEmpty == "boolean") {
-      if (props.isListEmpty) {
-        element.current.setAttribute('is-list-empty', 'true');
+    if (element.current && typeof props.isEmpty == "boolean") {
+      if (props.isEmpty) {
+        element.current.setAttribute('is-empty', 'true');
       } else {
-        element.current.setAttribute('is-list-empty', 'false');
+        element.current.setAttribute('is-empty', 'false');
 
       }
     }
 
-  }, [element.current, props.isListEmpty]);
+  }, [element.current, props.isEmpty]);
 
   useEffect(() => {
-    if (element.current && typeof props.isListEnded == "boolean") {
-      if (props.isListEnded) {
-        element.current?.setAttribute('is-list-ended', 'true');
+    if (element.current && typeof props.hasMore == "boolean") {
+      if (props.hasMore) {
+        element.current?.setAttribute('has-more', 'true');
       } else {
-        element.current?.setAttribute('is-list-ended', 'false');
+        element.current?.setAttribute('has-more', 'false');
       }
     }
 
-  }, [element.current, props.isListEnded]);
+  }, [element.current, props.hasMore]);
 
   useEffect(() => {
     if (element.current && typeof props.disableCaptureScroll == "boolean") {

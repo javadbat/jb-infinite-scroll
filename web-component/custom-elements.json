@@ -18,35 +18,35 @@
           "attributes": [
             {
               "name": "is-loading",
-              "description": "Shows the loading slot/default loading UI and prevents scrollEnd capture while true.",
+              "description": "Shows the loading slot/default loading UI and prevents scroll-end capture while true.",
               "type": {
                 "text": "boolean"
               }
             },
             {
-              "name": "is-list-empty",
+              "name": "is-empty",
               "description": "Shows the empty slot and hides content while true.",
               "type": {
                 "text": "boolean"
               }
             },
             {
-              "name": "is-list-ended",
-              "description": "Marks the list as ended and prevents future scrollEnd capture while true.",
+              "name": "has-more",
+              "description": "Controls whether more data can be loaded. False prevents future scroll-end capture.",
               "type": {
                 "text": "boolean"
               }
             },
             {
               "name": "disable-capture-scroll",
-              "description": "Disables scrollEnd capture while true.",
+              "description": "Disables scroll-end capture while true.",
               "type": {
                 "text": "boolean"
               }
             },
             {
               "name": "state-change-waiting-behavior",
-              "description": "Controls whether scrollEnd capture waits for a state change after firing.",
+              "description": "Controls whether scroll-end capture waits for a state change after firing.",
               "type": {
                 "text": "'FORCE_WAIT' | 'NO_WAIT'"
               },
@@ -64,23 +64,23 @@
             {
               "kind": "field",
               "name": "isLoading",
-              "description": "Shows loading UI and prevents scrollEnd capture while true.",
+              "description": "Shows loading UI and prevents scroll-end capture while true.",
               "type": {
                 "text": "boolean"
               }
             },
             {
               "kind": "field",
-              "name": "isListEmpty",
-              "description": "Shows empty UI and prevents scrollEnd capture while true.",
+              "name": "isEmpty",
+              "description": "Shows empty UI and prevents scroll-end capture while true.",
               "type": {
                 "text": "boolean"
               }
             },
             {
               "kind": "field",
-              "name": "isListEnded",
-              "description": "Marks the list as ended and prevents future scrollEnd capture while true.",
+              "name": "hasMore",
+              "description": "Controls whether more data can be loaded. False prevents future scroll-end capture.",
               "type": {
                 "text": "boolean"
               }
@@ -88,7 +88,7 @@
             {
               "kind": "field",
               "name": "disableCaptureScroll",
-              "description": "Disables scrollEnd capture while true.",
+              "description": "Disables scroll-end capture while true.",
               "type": {
                 "text": "boolean"
               }
@@ -96,7 +96,7 @@
             {
               "kind": "field",
               "name": "stateChangeWaitingBehavior",
-              "description": "Controls waiting behavior after scrollEnd fires.",
+              "description": "Controls waiting behavior after scroll-end fires.",
               "type": {
                 "text": "'FORCE_WAIT' | 'NO_WAIT'"
               }
@@ -104,7 +104,7 @@
             {
               "kind": "field",
               "name": "canCaptureScroll",
-              "description": "True when scrollEnd can currently be captured. False while loading, empty, ended, waiting for state change, or disabled.",
+              "description": "True when scroll-end can currently be captured. False while loading, empty, ended, waiting for state change, or disabled.",
               "type": {
                 "text": "boolean"
               },
@@ -151,7 +151,7 @@
               "description": "Dispatched from the host when the internal content wrapper scrolls."
             },
             {
-              "name": "scrollEnd",
+              "name": "scroll-end",
               "description": "Dispatched when the internal scroll wrapper reaches the bottom and canCaptureScroll is true."
             },
             {
@@ -174,12 +174,12 @@
             },
             {
               "name": "empty",
-              "description": "Custom empty-list UI shown when isListEmpty is true."
+              "description": "Custom empty-list UI shown when isEmpty is true."
             }
           ],
           "cssParts": [
             {
-              "name": "content-wrapper",
+              "name": "content",
               "description": "Internal scrollable content wrapper."
             },
             {
@@ -202,7 +202,7 @@
             },
             {
               "name": "empty",
-              "description": "Applied while isListEmpty is true."
+              "description": "Applied while isEmpty is true."
             }
           ],
           "cssProperties": []

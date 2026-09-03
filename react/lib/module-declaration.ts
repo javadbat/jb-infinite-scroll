@@ -9,6 +9,7 @@ declare module "react" {
     interface JBInfiniteScrollType extends React.DetailedHTMLProps<React.HTMLAttributes<JBInfiniteScrollWebComponent>, JBInfiniteScrollWebComponent> {
       "class"?: string,
       "type"?: string;
+      "is-loading"?: string;
     }
   }
 }

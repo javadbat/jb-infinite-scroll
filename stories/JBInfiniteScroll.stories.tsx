@@ -42,11 +42,11 @@ export const ActionTemplate: Story = {
       const ref = useRef(null);
       const [list, setList] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
       const [isLoading, setIsLoading] = useState(false);
-      const [isListEnded, setIsListEnded] = useState(false);
+      const [hasMore, setHasMore] = useState(true);
       const onScrollEnd = () => {
         const i = list.at(-1)!;
         if (i > 100) {
-          setIsListEnded(true);
+          setHasMore(false);
         }
         setIsLoading(true);
         setTimeout(() => {
@@ -56,8 +56,8 @@ export const ActionTemplate: Story = {
       };
       return (
         <div style={{ height: "10rem", border: "solid 1px #666", overflow: "hidden" }}>
-          {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
-          <JBInfiniteScroll {...args} ref={ref} onScrollEnd={onScrollEnd} isLoading={isLoading} isListEnded={isListEnded} disableCaptureScroll={isLoading}>
+          {/* ðŸ‘‡ Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
+          <JBInfiniteScroll {...args} ref={ref} onScrollEnd={onScrollEnd} isLoading={isLoading} hasMore={hasMore} disableCaptureScroll={isLoading}>
             <div slot="content">
               {
                 list.map((item) => {
@@ -82,12 +82,14 @@ export const ActionTemplate: Story = {
       await waitFor(() => {
         expect(loadingWrapper).toHaveClass('--show');
         expect(infiniteScroll.isLoading).toBe(true);
+        expect(infiniteScroll.hasAttribute('is-loading')).toBe(true);
       });
 
       await waitFor(() => {
         expect(content).toHaveTextContent('18');
         expect(loadingWrapper).not.toHaveClass('--show');
         expect(infiniteScroll.isLoading).toBe(false);
+        expect(infiniteScroll.hasAttribute('is-loading')).toBe(false);
       }, { timeout: 2000 });
     }
 };
@@ -98,10 +100,10 @@ export const StateGuards: Story = {
       <JBInfiniteScroll data-testid="loading-guard" isLoading>
         <div slot="content">Loading content</div>
       </JBInfiniteScroll>
-      <JBInfiniteScroll data-testid="empty-guard" isListEmpty>
+      <JBInfiniteScroll data-testid="empty-guard" isEmpty>
         <div slot="empty">No items found</div>
       </JBInfiniteScroll>
-      <JBInfiniteScroll data-testid="ended-guard" isListEnded>
+      <JBInfiniteScroll data-testid="ended-guard" hasMore={false}>
         <div slot="content">The end</div>
       </JBInfiniteScroll>
       <JBInfiniteScroll data-testid="disabled-guard" disableCaptureScroll>
@@ -117,10 +119,11 @@ export const StateGuards: Story = {
 
     await waitFor(() => {
       expect(getGuard("loading-guard")?.isLoading).toBe(true);
+      expect(getGuard("loading-guard")?.hasAttribute('is-loading')).toBe(true);
       expect(getGuard("loading-guard")?.canCaptureScroll).toBe(false);
-      expect(getGuard("empty-guard")?.isListEmpty).toBe(true);
+      expect(getGuard("empty-guard")?.isEmpty).toBe(true);
       expect(getGuard("empty-guard")?.canCaptureScroll).toBe(false);
-      expect(getGuard("ended-guard")?.isListEnded).toBe(true);
+      expect(getGuard("ended-guard")?.hasMore).toBe(false);
       expect(getGuard("ended-guard")?.canCaptureScroll).toBe(false);
       expect(getGuard("disabled-guard")?.disableCaptureScroll).toBe(true);
       expect(getGuard("disabled-guard")?.canCaptureScroll).toBe(false);
@@ -136,11 +139,11 @@ export const ScrollManipulation: Story = {
       const ref = useRef<JBInfiniteScrollWebComponent>(null);
       const [list, setList] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
       const [isLoading, setIsLoading] = useState(false);
-      const [isListEnded, setIsListEnded] = useState(false);
+      const [hasMore, setHasMore] = useState(true);
       const onScrollEnd = () => {
         const i = list.at(-1)!;
         if (i > 100) {
-          setIsListEnded(true);
+          setHasMore(false);
         }
         setIsLoading(true);
         setTimeout(() => {
@@ -157,8 +160,8 @@ export const ScrollManipulation: Story = {
       return (
         <Fragment>
           <div style={{ height: "10rem", border: "solid 1px #666", overflow: "hidden" }}>
-            {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
-            <JBInfiniteScroll {...args} ref={ref} onScrollEnd={onScrollEnd} isLoading={isLoading} isListEnded={isListEnded} disableCaptureScroll={isLoading}>
+            {/* ðŸ‘‡ Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
+            <JBInfiniteScroll {...args} ref={ref} onScrollEnd={onScrollEnd} isLoading={isLoading} hasMore={hasMore} disableCaptureScroll={isLoading}>
               <div slot="content">
                 {
                   list.map((item) => {
@@ -245,7 +248,7 @@ export const StickToBottom: Story = {
 }
 export const Empty: Story = {
   args: {
-    isListEmpty: true,
+    isEmpty: true,
     children: <div slot="empty">list is empty</div>,
   },
   play: async ({ canvasElement }) => {
@@ -254,7 +257,7 @@ export const Empty: Story = {
     const emptyListWrapper = getEmptyListWrapper(infiniteScroll);
 
     await waitFor(() => {
-      expect(infiniteScroll.isListEmpty).toBe(true);
+      expect(infiniteScroll.isEmpty).toBe(true);
       expect(contentWrapper).not.toHaveClass('--show');
       expect(emptyListWrapper).toHaveClass('--show');
       expect(canvasElement).toHaveTextContent('list is empty');

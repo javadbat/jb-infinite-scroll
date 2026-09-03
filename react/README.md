@@ -39,8 +39,8 @@ Use `stickToBottom` for chat or log views that should stay pinned to the bottom 
 | prop | type | description |
 | --- | --- | --- |
 | `isLoading` | `boolean` | Shows loading UI and prevents `onScrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
-| `isListEmpty` | `boolean` | Shows empty UI, hides content, and prevents `onScrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--empty) |
-| `isListEnded` | `boolean` | Marks the list as ended and prevents future `onScrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
+| `isEmpty` | `boolean` | Shows empty UI, hides content, and prevents `onScrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--empty) |
+| `hasMore` | `boolean` | Controls whether more data can be loaded. Set it to `false` to prevent future `onScrollEnd` capture. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
 | `disableCaptureScroll` | `boolean` | Disables `onScrollEnd` capture while true. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
 | `stateChangeWaitingBehavior` | `StateChangeWaitingBehavior` | `FORCE_WAIT` or `NO_WAIT` behavior after `onScrollEnd`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) |
 | `stickToBottom` | `boolean` | Keeps the scroll position at the bottom when content changes, unless the user has scrolled away. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--stick-to-bottom) |
@@ -49,7 +49,7 @@ Use `stickToBottom` for chat or log views that should stay pinned to the bottom 
 
 | prop | event | description |
 | --- | --- | --- |
-| `onScrollEnd` | `scrollEnd` | Fired when the internal scroll wrapper reaches the bottom and capture is allowed. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--action-template) |
+| `onScrollEnd` | `scroll-end` | Fired when the internal scroll wrapper reaches the bottom and capture is allowed. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--action-template) |
 | `onInit` | `init` | Fired after initialization. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--normal) |
 | `onLoad` | `load` | Fired before initialization. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--normal) |
 | `onScroll` | `scroll` | Fired when the internal content wrapper scrolls. Prefer `onScrollEnd` for load-more behavior. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--scroll-event-test) |
@@ -62,14 +62,14 @@ The [load-more demo](https://javadbat.github.io/design-system/?path=/story/compo
 const ref = useRef(null);
 const [list, setList] = useState([1, 2, 3, 4, 5]);
 const [isLoading, setIsLoading] = useState(false);
-const [isListEnded, setIsListEnded] = useState(false);
+const [hasMore, setHasMore] = useState(true);
 
 async function onScrollEnd() {
   setIsLoading(true);
 
   const nextItems = await loadMoreItems();
   setList((current) => [...current, ...nextItems]);
-  setIsListEnded(nextItems.length === 0);
+  setHasMore(nextItems.length > 0);
   setIsLoading(false);
 }
 
@@ -77,7 +77,7 @@ return (
   <JBInfiniteScroll
     ref={ref}
     isLoading={isLoading}
-    isListEnded={isListEnded}
+    hasMore={hasMore}
     onScrollEnd={onScrollEnd}
   >
     <div slot="content">
@@ -115,7 +115,7 @@ Compare custom loading and empty content in the [load-more demo](https://javadba
 ```
 
 ```jsx
-<JBInfiniteScroll isListEmpty>
+<JBInfiniteScroll isEmpty>
   <div slot="empty">No items found</div>
 </JBInfiniteScroll>
 ```
@@ -125,7 +125,7 @@ Compare custom loading and empty content in the [load-more demo](https://javadba
 The [state guards demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards) compares ended and disabled capture behavior.
 
 ```jsx
-<JBInfiniteScroll isListEnded>
+<JBInfiniteScroll hasMore={false}>
   <div slot="content">{items.map(renderItem)}</div>
 </JBInfiniteScroll>
 ```
@@ -138,7 +138,7 @@ The [state guards demo](https://javadbat.github.io/design-system/?path=/story/co
 
 ## State-change waiting behavior
 
-The default behavior is `FORCE_WAIT`, which prevents repeated `onScrollEnd` calls until you update a state such as `isLoading`, `isListEnded`, or `isListEmpty`. Compare it with `NO_WAIT` in the [state guards demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards).
+The default behavior is `FORCE_WAIT`, which prevents repeated `onScrollEnd` calls until you update a state such as `isLoading`, `hasMore`, or `isEmpty`. Compare it with `NO_WAIT` in the [state guards demo](https://javadbat.github.io/design-system/?path=/story/components-jbinfinitescroll--state-guards).
 
 ```jsx
 import {
@@ -177,7 +177,7 @@ The React wrapper shares the web-component parts and states; inspect the scroll 
 The React component uses the same CSS parts and custom states as the web component.
 
 ```css
-.chat-scroll::part(content-wrapper) {
+.chat-scroll::part(content) {
   scroll-behavior: smooth;
 }
 
@@ -200,6 +200,6 @@ For web-component behavior, methods, events, slots, CSS parts, and the full API,
 - Put list content inside a child with `slot="content"`.
 - Use `onScrollEnd` for load-more behavior.
 - Use `onScroll` for regular scroll-position updates.
-- In default `FORCE_WAIT` mode, update `isLoading`, `isListEnded`, or `isListEmpty` after `onScrollEnd`.
-- Use `isListEnded` when the API has no more data.
+- In default `FORCE_WAIT` mode, update `isLoading`, `hasMore`, or `isEmpty` after `onScrollEnd`.
+- Set `hasMore={false}` when the API has no more data.
 - Use `ref.current.scrollToEnd()` to force the scroll position to the bottom.

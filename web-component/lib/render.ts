@@ -4,7 +4,7 @@ import { dictionary } from "./i18n";
 export function renderHTML(): string {
   return /* html */ `
   <div class="infinite-scroll-component">
-    <div class="content-wrapper" part="content-wrapper">
+    <div class="content" part="content">
         <slot name="content"></slot>
         <div class="loading-wrapper" part="loading-wrapper" role="status" aria-live="polite" aria-label="${dictionary.get(i18n, "loadingMoreItems")}">
             <slot name="loading">

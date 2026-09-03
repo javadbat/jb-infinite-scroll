@@ -14,16 +14,16 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
   //the amount of space that we listen to for trigger refresh 
   #endPageGap = 0;
 
-  #isListEnded = false;
+  #hasMore = true;
   //used when user scroll and we dont want to capture multiple scroll at one and wait for prev scroll event to finish
   #isWaitingForStateChange = false;
   #disableCaptureScroll = false;
   // if user set empty state from outside (change to manual mode)
-  #externalIsListEmpty: boolean | null = null;
+  #externalIsEmpty: boolean | null = null;
   #internals!: ElementInternals;
-  get #isListEmpty() {
-    if (this.#externalIsListEmpty !== null) {
-      return this.#externalIsListEmpty;
+  get #isEmpty() {
+    if (this.#externalIsEmpty !== null) {
+      return this.#externalIsEmpty;
     }
     return null;
   }
@@ -64,11 +64,11 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
     this.#disableCaptureScroll = value;
     this.#setIsWaitingForStatChange(false);
   }
-  get isListEnded() {
-    return this.#isListEnded;
+  get hasMore() {
+    return this.#hasMore;
   }
-  set isListEnded(value: boolean) {
-    this.#isListEnded = value;
+  set hasMore(value: boolean) {
+    this.#hasMore = value;
     this.#setIsWaitingForStatChange(false);
 
   }
@@ -76,10 +76,11 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
     return this.#isLoading;
   }
   set isLoading(value: boolean) {
-    this.#isLoading = value;
-    if (this.#internals) this.#internals.ariaBusy = value ? "true" : "false";
+    this.#isLoading = Boolean(value);
+    this.toggleAttribute("is-loading", this.#isLoading);
+    if (this.#internals) this.#internals.ariaBusy = this.#isLoading ? "true" : "false";
     this.#setIsWaitingForStatChange(false);
-    if (value) {
+    if (this.#isLoading) {
       this.elements?.loading.classList.add('--show');
       (this.#internals as any).states?.add("loading");
     } else {
@@ -89,12 +90,12 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
       this.#checkScrollHeight();
     }
   }
-  get isListEmpty() {
-    return this.#externalIsListEmpty??false;
+  get isEmpty() {
+    return this.#externalIsEmpty??false;
   }
-  set isListEmpty(value: boolean) {
-    this.#externalIsListEmpty = value;
-    if (value) {
+  set isEmpty(value: boolean) {
+    this.#externalIsEmpty = value;
+    if (this.#isLoading) {
       (this.#internals as any).states?.add("empty");
     } else {
       (this.#internals as any).states?.delete("empty");
@@ -105,7 +106,7 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
 
   }
   #updateListDisplayState() {
-    if (this.#isListEmpty) {
+    if (this.#isEmpty) {
       this.elements?.emptyListWrapper.classList.add('--show');
       this.elements?.contentWrapper.classList.remove('--show');
 
@@ -143,7 +144,7 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
     this.elements = {
       loading: shadowRoot.querySelector('.loading-wrapper')!,
       componentWrapper: shadowRoot.querySelector('.Infinite-scroll-component')!,
-      contentWrapper: shadowRoot.querySelector('.content-wrapper')!,
+      contentWrapper: shadowRoot.querySelector('.content')!,
       loadingWrapper: shadowRoot.querySelector('.loading-wrapper')!,
       emptyListWrapper: shadowRoot.querySelector('.empty-list-wrapper')!,
     } as const;
@@ -183,7 +184,7 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
   }
   #onScrollEnd() {
     this.#setIsWaitingForStatChange(true);
-    const event = new CustomEvent('scrollEnd');
+    const event = new CustomEvent('scroll-end');
     this.dispatchEvent(event);
   }
   #onScroll() {
@@ -214,7 +215,7 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
 
   }
   get canCaptureScroll() {
-    if (!(this.#isLoading || this.#isListEmpty || this.#isListEnded || this.#isWaitingForStateChange || this.#disableCaptureScroll)) {
+    if (!(this.#isLoading || this.#isEmpty || !this.#hasMore || this.#isWaitingForStateChange || this.#disableCaptureScroll)) {
       return true;
 
     }
@@ -222,7 +223,7 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
   }
 
   static get observedAttributes() {
-    return ['is-loading', 'is-list-empty', 'is-list-ended', 'disable-capture-scroll', 'state-change-waiting-behavior','stick-to-bottom'];
+    return ['is-loading', 'is-empty', 'has-more', 'disable-capture-scroll', 'state-change-waiting-behavior','stick-to-bottom'];
   }
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     // do something when an attribute has changed
@@ -233,11 +234,11 @@ export class JBInfiniteScrollWebComponent extends JBBaseComponent {
       case 'is-loading':
         this.isLoading = parseBooleanAttribute(value);
         break;
-      case 'is-list-empty':
-        this.isListEmpty = parseBooleanAttribute(value);
+      case 'is-empty':
+        this.isEmpty = parseBooleanAttribute(value);
         break;
-      case 'is-list-ended':
-        this.#isListEnded = parseBooleanAttribute(value);
+      case 'has-more':
+        this.hasMore = parseBooleanAttribute(value, true);
         break;
 
       case 'disable-capture-scroll':
